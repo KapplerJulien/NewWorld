@@ -1,0 +1,181 @@
+body
+{
+	background-image:url("../image/monde.png");
+	background-position:center;
+	background-color:white;
+	background-repeat: no-repeat;
+	background-color:white;
+	width:100%;
+	height:100%;
+	margin-top:0%;
+	margin-bottom:0%;
+	margin-left:0%;
+	margin-right:0%;
+	display:block;
+}
+
+
+#messAccueil
+{
+	width:50%;
+	height:800px;
+	color:#8C5E27;
+	font-size:40px;
+}
+
+#messAccueil p
+{
+	white-space: pre;
+	display:block;
+	position:relative;	
+	top:90px;
+	left:20px;
+	font-family:"Great Vibes",cursive;
+}
+
+#statut
+{
+	width:100%;
+	height:70%;
+	background-color:#E3DDDC;
+	color:white;
+	text-align:right;
+}
+
+#barreMenu
+{
+	width:100%;	
+	height:auto;
+	background-image:linear-gradient(grey, #CDCCC9);
+	color: white; 
+	font-size:40px;
+}
+
+#barreMenu p
+{
+	margin-top:0%;
+	margin-bottom:0%;
+	width:100%;
+}
+
+#barreMenu a
+{
+	height:auto;
+	margin-left:5%;
+	margin-right:5%;
+}
+
+#barreMenu a:hover
+{
+	background-image:linear-gradient(#1C1C1C,white);
+}
+
+#barreRecherche
+{
+	width:10%;
+	border-radius:10px;
+	background-image:linear-gradient(white,grey);
+	color:white;
+	right:3px;
+}
+
+#basPage
+{
+	width:100%;
+	height:270px; 
+	background-color:#CDCCC9;
+	color: #484848;
+	margin-bottom:0%;
+}
+
+#menuBasPrincipal
+{
+	text-align:center;
+	margin-bottom:15px;
+	color:#1252EC;
+	text-decoration:none;
+}
+
+#menuBasPhrase
+{
+	text-decoration:none;
+	text-align:left;
+	margin-top:1px;
+	margin-bottom:1px;
+}
+
+#jardinier
+{
+	display:block;
+	width:15%;
+	height:auto;
+	text-align:right;
+	position: absolute;
+	top:20%;
+	right:3%;
+}
+
+#boucher
+{
+	display:block;
+	width:15%;
+	height:auto;
+	text-align:right;
+	position: absolute;
+	bottom:40%;
+	right:3%; 
+}
+
+#gauche
+{
+	width:15%;
+	height:100%;
+	text-align:left;
+	float:left;
+	margin-left:6%;
+	margin-right:6%;
+	display:inline-block;
+}
+
+#centre
+{
+	width:15%;
+	height:100%;
+	text-align:left;
+	float:center;
+	margin-right:6%;
+	margin-left:15%;
+	display:inline-block;	
+}
+
+#droite
+{
+	width:15%;
+	height:100%;
+	text-align:left;
+	float:right;
+	margin-right:6%;
+	margin-left:6%;
+	display:inline-block;
+}
+
+#copy
+{
+	width:100%;
+	height:15px;
+	bottom:35px;
+	text-align:right;
+	font-size:small;
+	float:right;
+	color:white;
+	margin-top:0%;
+	margin-bottom:0%;
+	display:block;
+	position:relative;
+}
+
+.lien:visited
+{
+	color:black;
+}
+
