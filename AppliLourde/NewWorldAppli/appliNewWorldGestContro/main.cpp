@@ -16,11 +16,11 @@ int main(int argc, char *argv[])
     {
         DialogConnexion test;
         if(test.exec()==DialogConnexion::Accepted){
-            if(test.getType() == "Gestionnaire"){
+            if(test.getType() == "2"){
                 MainWindowGestionnaires w;
                 w.show();
                 return a.exec();
-            } else if(test.getType() == "Controleur"){
+            } else if(test.getType() == "1"){
                 MainWindowControleurs w;
                 w.show();
                 return a.exec();

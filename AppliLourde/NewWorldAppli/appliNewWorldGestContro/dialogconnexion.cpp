@@ -17,7 +17,7 @@ void DialogConnexion::on_pushButtonConnection_clicked()
 {
     QString login = ui->lineEditLogin->text();
     QString motDePasse = ui->lineEditMotDePasse->text();
-    QSqlQuery rechercheUtilisateur("Select login, mdp, typePersonnel from Personnel ;");
+    QSqlQuery rechercheUtilisateur("Select loginPers, motDePassePers, idTypeP from personnel ;");
     if(rechercheUtilisateur.next()){
         QString loginBdd = rechercheUtilisateur.value(0).toString();
         qDebug() << loginBdd;

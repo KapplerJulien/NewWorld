@@ -5,7 +5,6 @@
 #include <QMessageBox>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include "dialogajoutproduit.h"
 
 MainWindowGestionnaires::MainWindowGestionnaires(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +14,7 @@ MainWindowGestionnaires::MainWindowGestionnaires(QWidget *parent) :
     remplissageTableau();
     ui->labelEmploye->setText("Ajouter un employe");
     chargementListRayon();
+    chargementListProduitsDemandes();
 }
 
 MainWindowGestionnaires::~MainWindowGestionnaires()
@@ -314,7 +314,9 @@ void MainWindowGestionnaires::on_pushButtonSupprimer_clicked()
      }
 }
 
+
             // PARTIE RAYON/TYPE PRODUIT // 
+
 
 void MainWindowGestionnaires::chargementListRayon(){
     QSqlQuery chargementRayon("Select no, libelle from Rayon;");
@@ -330,9 +332,24 @@ void MainWindowGestionnaires::chargementListRayon(){
     }
 }
 
+void MainWindowGestionnaires::chargementListProduitsDemandes(){
+    QSqlQuery chargementProduitsDemandes("Select id,libelle from produitDemande where etat=0");
+    ui->listWidgetProduitsDemandes->clear();
+    QString id;
+    QString libelle;
+    while(chargementProduitsDemandes.next()){
+        id = chargementProduitsDemandes.value("id").toString();
+        libelle = chargementProduitsDemandes.value("libelle").toString();
+        QListWidgetItem* unLibelle = new QListWidgetItem(libelle);
+        unLibelle->setData(32, id);
+        ui->listWidgetProduitsDemandes->addItem(unLibelle);
+    }
+}
+
 void MainWindowGestionnaires::chargementListCategorie(QString idRayon){
     QSqlQuery chargementCategorie("Select numero, libelle from Categorie where no="+ idRayon +";");
     ui->listWidgetCategories->clear();
+    ui->listWidgetProduits->clear();
     QString id;
     QString libelle;
     while(chargementCategorie.next()){
@@ -375,7 +392,7 @@ void MainWindowGestionnaires::on_pushButtonAjouterRayons_clicked()
 void MainWindowGestionnaires::on_listWidgetRayons_clicked(const QModelIndex &index)
 {
     ui->lineEditCategories->setEnabled(true);
-    QString idRayon = ui->listWidgetRayons->currentItem()->data(32).toString();
+    idRayon = ui->listWidgetRayons->currentItem()->data(32).toString();
     chargementListCategorie(idRayon);
 }
 
@@ -384,7 +401,7 @@ void MainWindowGestionnaires::on_pushButtonAjouterCategories_clicked()
     qDebug() << "void MainWindowGestionnaires::on_pushButtonAjouterCategories_clicked()";
     QString id;
     id = maxIdCategorie();
-    QString idRayon = ui->listWidgetRayons->currentItem()->data(32).toString();
+    idRayon = ui->listWidgetRayons->currentItem()->data(32).toString();
     QString categorie = ui->lineEditCategories->text();
     QSqlQuery ajoutCategorie("insert into Categorie(numero,libelle,no) values("+ id +",'"+ categorie +"',"+ idRayon +");");
     qDebug() << "insert into Categorie(numero,libelle,no) values("+ id +",'"+ categorie +"',"+ idRayon +");";
@@ -395,23 +412,20 @@ void MainWindowGestionnaires::on_pushButtonAjouterCategories_clicked()
 void MainWindowGestionnaires::on_listWidgetCategories_clicked(const QModelIndex &index)
 {
     ui->lineEditProduits->setEnabled(true);
-    QString idCategorie = ui->listWidgetCategories->currentItem()->data(32).toString();
+    idCategorie = ui->listWidgetCategories->currentItem()->data(32).toString();
     chargementListProduit(idCategorie);
 
 }
 
 void MainWindowGestionnaires::on_pushButtonAjouterProduits_clicked()
 {
-    DialogAjoutProduit dap;
-    if(dap.exec() == DialogAjoutProduit::Accepted){
-        QString id;
-        id = maxIdProduit();
-        QString idCategorie = ui->listWidgetCategories->currentItem()->data(32).toString();
-        QString produit = ui->lineEditProduits->text();
-        QSqlQuery ajoutProduit("insert into Produit(numeroPdt, libelle, no) values("+ id +",'"+ produit +"',"+ idCategorie +");");
-        ajoutProduit.exec();
-        chargementListProduit(idCategorie);
-    }
+    QString id;
+    id = maxIdProduit();
+    idCategorie = ui->listWidgetCategories->currentItem()->data(32).toString();
+    QString produit = ui->lineEditProduits->text();
+    QSqlQuery ajoutProduit("insert into Produit(numeroPdt, libelle, no) values("+ id +",'"+ produit +"',"+ idCategorie +");");
+    ajoutProduit.exec();
+    chargementListProduit(idCategorie);
 }
 
 void MainWindowGestionnaires::on_lineEditProduits_textChanged(const QString &arg1)
@@ -439,4 +453,77 @@ void MainWindowGestionnaires::on_lineEditCategories_textChanged(const QString &a
     } else {
         ui->pushButtonAjouterCategories->setEnabled(true);
     }
+}
+
+void MainWindowGestionnaires::on_pushButtonSupprimerRayons_clicked()
+{
+    if(ui->listWidgetCategories->count() == 0){
+        QSqlQuery supprRayon("Delete from Rayon where no = "+ idRayon + ";");
+        supprRayon.exec();
+        chargementListRayon();
+    } else {
+        QMessageBox msgBox;
+        msgBox.setText("Vous ne pouvez pas supprimer ce rayon car il reste des catégories.");
+        msgBox.exec();
+    }
+}
+
+void MainWindowGestionnaires::on_pushButtonSupprimerCategories_clicked()
+{
+    if(ui->listWidgetProduits->count() == 0){
+        QSqlQuery supprCategorie("Delete from Categorie where numero = "+ idCategorie + ";");
+        supprCategorie.exec();
+        chargementListCategorie(idRayon);
+    } else {
+        QMessageBox msgBox;
+        msgBox.setText("Vous ne pouvez pas supprimer cette catégorie car il reste des produits.");
+        msgBox.exec();
+    }
+}
+
+void MainWindowGestionnaires::on_pushButtonSupprimerProduits_clicked()
+{
+    idProduit = ui->listWidgetProduits->currentItem()->data(32).toString();
+    QSqlQuery supprProduit("Delete from Produit where numeroPdt = "+ idProduit +";");
+    supprProduit.exec();
+}
+
+void MainWindowGestionnaires::on_listWidgetCategories_itemSelectionChanged()
+{
+    ui->pushButtonAjouterProduitsDemandes->setEnabled(ui->listWidgetCategories->selectedItems().count()!=0 && ui->listWidgetProduitsDemandes->selectedItems().count()!=0);
+  /*//s'il n'y a rien de selectionne je desactive la zone du dessous
+    if(ui->listWidgetCategories->selectedItems().count()==0){
+        ui->pushButtonAjouterProduitsDemandes->setDisabled(true);
+    } else {
+    //sinon je l'active
+        ui->pushButtonAjouterProduitsDemandes->setEnabled(true);
+    }*/
+}
+
+void MainWindowGestionnaires::on_listWidgetProduitsDemandes_itemSelectionChanged()
+{
+    ui->pushButtonAjouterProduitsDemandes->setEnabled(ui->listWidgetCategories->selectedItems().count()!=0 && ui->listWidgetProduitsDemandes->selectedItems().count()!=0);
+    ui->pushButtonRefuserProduitsDemandes->setEnabled(ui->listWidgetProduitsDemandes->selectedItems().count()!=0);
+}
+
+void MainWindowGestionnaires::on_pushButtonAjouterProduitsDemandes_clicked()
+{
+    QString produitDemande = ui->listWidgetProduitsDemandes->currentItem()->text();
+    QString categorie = ui->listWidgetCategories->currentItem()->data(32).toString();
+    QString idNveauProduit = maxIdProduit();
+    QSqlQuery ajoutProduit("insert into Produit(numeroPdt,libelle,no) values("+idNveauProduit+",'"+produitDemande+"',"+categorie+");");
+    ajoutProduit.exec();
+    QSqlQuery modifProduitDemande("Delete from produitDemande where libelle='"+produitDemande+"';");
+    modifProduitDemande.exec();
+    chargementListProduitsDemandes();
+    chargementListProduit(categorie);
+}
+
+void MainWindowGestionnaires::on_pushButtonRefuserProduitsDemandes_clicked()
+{
+    QString produitDemande = ui->listWidgetProduitsDemandes->currentItem()->text();
+    QString idProduitDemande = ui->listWidgetProduitsDemandes->currentItem()->data(32).toString();
+    QSqlQuery refusProduit("update produitDemande set etat=1 where id="+idProduitDemande+";");
+    refusProduit.exec();
+    chargementListProduitsDemandes();
 }

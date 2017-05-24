@@ -56,6 +56,21 @@ private slots:
 
     void on_lineEditCategories_textChanged(const QString &arg1);
 
+    void on_pushButtonSupprimerRayons_clicked();
+
+    void on_pushButtonSupprimerCategories_clicked();
+
+    void on_pushButtonSupprimerProduits_clicked();
+
+    void on_listWidgetCategories_itemSelectionChanged();
+
+    void on_listWidgetProduitsDemandes_itemSelectionChanged();
+
+    void chargementListProduitsDemandes();
+
+    void on_pushButtonAjouterProduitsDemandes_clicked();
+    void on_pushButtonRefuserProduitsDemandes_clicked();
+
 private:
     Ui::MainWindowGestionnaires *ui;
     int idMaxUtilisateur;
@@ -72,6 +87,10 @@ private:
     QString pseudo;
     QString mdpInitial;
     QVector<QString> lesGestionnaires;
+
+    QString idCategorie;
+    QString idRayon;
+    QString idProduit;
 };
 
 #endif // MAINWINDOWGESTIONNAIRES_H

@@ -15,17 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindowgestionnaires.cpp \
     mainwindowcontroleurs.cpp \
-    dialogconnexion.cpp \
-    dialogajoutproduit.cpp
+    dialogconnexion.cpp
 
 HEADERS  += \
     mainwindowgestionnaires.h \
     mainwindowcontroleurs.h \
-    dialogconnexion.h \
-    dialogajoutproduit.h
+    dialogconnexion.h
 
 FORMS    += \
     mainwindowgestionnaires.ui \
     mainwindowcontroleurs.ui \
-    dialogconnexion.ui \
-    dialogajoutproduit.ui
+    dialogconnexion.ui

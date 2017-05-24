@@ -48,20 +48,16 @@ OBJECTS_DIR   = ./
 SOURCES       = main.cpp \
 		mainwindowgestionnaires.cpp \
 		mainwindowcontroleurs.cpp \
-		dialogconnexion.cpp \
-		dialogajoutproduit.cpp moc_mainwindowgestionnaires.cpp \
+		dialogconnexion.cpp moc_mainwindowgestionnaires.cpp \
 		moc_mainwindowcontroleurs.cpp \
-		moc_dialogconnexion.cpp \
-		moc_dialogajoutproduit.cpp
+		moc_dialogconnexion.cpp
 OBJECTS       = main.o \
 		mainwindowgestionnaires.o \
 		mainwindowcontroleurs.o \
 		dialogconnexion.o \
-		dialogajoutproduit.o \
 		moc_mainwindowgestionnaires.o \
 		moc_mainwindowcontroleurs.o \
-		moc_dialogconnexion.o \
-		moc_dialogajoutproduit.o
+		moc_dialogconnexion.o
 DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -125,8 +121,7 @@ DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		appliNewWorldGestContro.pro main.cpp \
 		mainwindowgestionnaires.cpp \
 		mainwindowcontroleurs.cpp \
-		dialogconnexion.cpp \
-		dialogajoutproduit.cpp
+		dialogconnexion.cpp
 QMAKE_TARGET  = appliNewWorldGestContro
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = appliNewWorldGestContro
@@ -156,7 +151,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET): ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutproduit.h $(OBJECTS)  
+$(TARGET): ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: appliNewWorldGestContro.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -297,7 +292,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/appliNewWorldGestContro1.0.0 || mkdir -p .tmp/appliNewWorldGestContro1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.h mainwindowcontroleurs.h dialogconnexion.h dialogajoutproduit.h .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents main.cpp mainwindowgestionnaires.cpp mainwindowcontroleurs.cpp dialogconnexion.cpp dialogajoutproduit.cpp .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.ui mainwindowcontroleurs.ui dialogconnexion.ui dialogajoutproduit.ui .tmp/appliNewWorldGestContro1.0.0/ && (cd `dirname .tmp/appliNewWorldGestContro1.0.0` && $(TAR) appliNewWorldGestContro1.0.0.tar appliNewWorldGestContro1.0.0 && $(COMPRESS) appliNewWorldGestContro1.0.0.tar) && $(MOVE) `dirname .tmp/appliNewWorldGestContro1.0.0`/appliNewWorldGestContro1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/appliNewWorldGestContro1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.h mainwindowcontroleurs.h dialogconnexion.h .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents main.cpp mainwindowgestionnaires.cpp mainwindowcontroleurs.cpp dialogconnexion.cpp .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.ui mainwindowcontroleurs.ui dialogconnexion.ui .tmp/appliNewWorldGestContro1.0.0/ && (cd `dirname .tmp/appliNewWorldGestContro1.0.0` && $(TAR) appliNewWorldGestContro1.0.0.tar appliNewWorldGestContro1.0.0 && $(COMPRESS) appliNewWorldGestContro1.0.0.tar) && $(MOVE) `dirname .tmp/appliNewWorldGestContro1.0.0`/appliNewWorldGestContro1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/appliNewWorldGestContro1.0.0
 
 
 clean:compiler_clean 
@@ -320,26 +315,23 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp moc_dialogajoutproduit.cpp
+compiler_moc_header_make_all: moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp moc_dialogajoutproduit.cpp
+	-$(DEL_FILE) moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp
 moc_mainwindowgestionnaires.cpp: mainwindowgestionnaires.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/public_html/NewWorld/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include mainwindowgestionnaires.h -o moc_mainwindowgestionnaires.cpp
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/public_html/NewWorld/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include mainwindowgestionnaires.h -o moc_mainwindowgestionnaires.cpp
 
 moc_mainwindowcontroleurs.cpp: mainwindowcontroleurs.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/public_html/NewWorld/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include mainwindowcontroleurs.h -o moc_mainwindowcontroleurs.cpp
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/public_html/NewWorld/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include mainwindowcontroleurs.h -o moc_mainwindowcontroleurs.cpp
 
 moc_dialogconnexion.cpp: dialogconnexion.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/public_html/NewWorld/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include dialogconnexion.h -o moc_dialogconnexion.cpp
-
-moc_dialogajoutproduit.cpp: dialogajoutproduit.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/public_html/NewWorld/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include dialogajoutproduit.h -o moc_dialogajoutproduit.cpp
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/public_html/NewWorld/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include dialogconnexion.h -o moc_dialogconnexion.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutproduit.h
+compiler_uic_make_all: ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutproduit.h
+	-$(DEL_FILE) ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h
 ui_mainwindowgestionnaires.h: mainwindowgestionnaires.ui
 	/usr/lib/i386-linux-gnu/qt5/bin/uic mainwindowgestionnaires.ui -o ui_mainwindowgestionnaires.h
 
@@ -348,9 +340,6 @@ ui_mainwindowcontroleurs.h: mainwindowcontroleurs.ui
 
 ui_dialogconnexion.h: dialogconnexion.ui
 	/usr/lib/i386-linux-gnu/qt5/bin/uic dialogconnexion.ui -o ui_dialogconnexion.h
-
-ui_dialogajoutproduit.h: dialogajoutproduit.ui
-	/usr/lib/i386-linux-gnu/qt5/bin/uic dialogajoutproduit.ui -o ui_dialogajoutproduit.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -368,8 +357,7 @@ main.o: main.cpp mainwindowgestionnaires.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindowgestionnaires.o: mainwindowgestionnaires.cpp mainwindowgestionnaires.h \
-		ui_mainwindowgestionnaires.h \
-		dialogajoutproduit.h
+		ui_mainwindowgestionnaires.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindowgestionnaires.o mainwindowgestionnaires.cpp
 
 mainwindowcontroleurs.o: mainwindowcontroleurs.cpp mainwindowcontroleurs.h \
@@ -380,10 +368,6 @@ dialogconnexion.o: dialogconnexion.cpp dialogconnexion.h \
 		ui_dialogconnexion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogconnexion.o dialogconnexion.cpp
 
-dialogajoutproduit.o: dialogajoutproduit.cpp dialogajoutproduit.h \
-		ui_dialogajoutproduit.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogajoutproduit.o dialogajoutproduit.cpp
-
 moc_mainwindowgestionnaires.o: moc_mainwindowgestionnaires.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindowgestionnaires.o moc_mainwindowgestionnaires.cpp
 
@@ -392,9 +376,6 @@ moc_mainwindowcontroleurs.o: moc_mainwindowcontroleurs.cpp
 
 moc_dialogconnexion.o: moc_dialogconnexion.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialogconnexion.o moc_dialogconnexion.cpp
-
-moc_dialogajoutproduit.o: moc_dialogajoutproduit.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialogajoutproduit.o moc_dialogajoutproduit.cpp
 
 ####### Install
 
