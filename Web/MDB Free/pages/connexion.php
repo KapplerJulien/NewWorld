@@ -2,6 +2,10 @@
 	session_start();
 	// var_dump($_SESSION);
 	include_once '../fonction/fonction.php';
+	/** if(!(isset($_POST["pseudo"]) && isset($_POST["mdp"]))){
+		echo $_POST["pseudo"];
+		echo $_POST["mdp"];
+	}*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -62,6 +66,7 @@
 				// echo "1";
 				$pseudo = $_POST["pseudo"];
 				$mdp = $_POST["mdp"];
+				var_dump($mdp);
 				$_SESSION["utilisateur"]["id"] = connexionSite($pseudo, $mdp);
 				// var_dump($id);
 				if($_SESSION["utilisateur"]["id"] == -1){
@@ -77,11 +82,11 @@
 					        <!--Body-->
 					        <div class="md-form">
 					            <i class="fa fa-user prefix"></i>
-					            <input type="text" id="pseudo" placeholder="Votre pseudo" value="<?php echo $pseudo; ?>">
+					            <input type="text" id="Pseudo" name="pseudo" placeholder="Votre pseudo" value="<?php echo $pseudo; ?>">
 					        </div>
 					        <div class="md-form">
 					            <i class="fa fa-lock prefix"></i>
-					            <input type="text" id="mdp" placeholder="Mot de passe" value="<?php echo $mdp; ?> ">
+					            <input type="text" id="Mdp" name="mdp" placeholder="Mot de passe" value="<?php echo $mdp; ?>">
 					        </div>
 
 					        <div class="text-center">
@@ -95,7 +100,8 @@
 				</form>
 		<?php
 				} else {
-					include 'connexionReussi.php';
+					var_dump($_SESSION);
+					header("Location: connexionReussi.php");
 				}
 			}
 		?>

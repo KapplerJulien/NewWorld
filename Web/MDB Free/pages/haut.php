@@ -62,6 +62,28 @@
             case '2':
 
             case '3':
+                 ?>
+                <a class="navbar-brand" href="/~jkappler/MDB Free/index.php">
+                    <strong>New World</strong>
+                </a>
+            <div class="collapse navbar-collapse" id="navbarNav1">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/~jkappler/MDB Free/pages/Client/catalogue.php">Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"></a>
+                </li>
+                <li class="nav-item dropdown btn-group">
+                    <a class="nav-link" href="/~jkappler/MDB Free/pages/deconnexion.php">Deconnexion</a>
+                </li>
+                </ul>
+            </div>
+                <?php
+                break;
 
             default:
                 # code...

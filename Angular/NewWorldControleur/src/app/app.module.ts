@@ -8,6 +8,7 @@ import { Map } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { ControleurVisite } from '../providers/controleur-visite';
+import { Producteur } from '../providers/producteur';
 
 import { HttpModule } from '@angular/http';
 
@@ -37,6 +38,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     ControleurVisite,
+    Producteur,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

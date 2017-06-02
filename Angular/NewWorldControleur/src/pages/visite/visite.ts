@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { ModelProducteur } from '../../models/ModelProducteur';
+
+import { Producteur } from '../../providers/producteur';
+
 /**
  * Generated class for the Visite page.
  *
@@ -14,11 +18,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Visite {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  producteurs : ModelProducteur[];
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Visite');
+  constructor(public navCtrl: NavController, public navParams: NavParams, private producteur: Producteur) {
+  	producteur.load().subscribe(producteurs => { 
+  		this.producteurs = producteurs;
+  		// console.log("bonjour" , this.producteurs);
+  	})
   }
 
 }

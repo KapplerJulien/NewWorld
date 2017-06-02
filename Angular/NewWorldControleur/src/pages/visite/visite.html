@@ -4,10 +4,10 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+-<ion-header>
 
   <ion-navbar>
-    <ion-title>visite</ion-title>
+    <ion-title>Visites</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,69 @@
 
 <ion-content padding>
 
+  <ion-list>
+    	<ion-item *ngFor="let producteur of producteurs">
+    		{{producteur.nom}} 
+    		{{producteur.prenom}} 
+    	</ion-item>
+  </ion-list>
+	<!--<ion-list>
+	 	<ul ng-repeat="producteur in this.producteurs">
+		 <h2> {{ producteur. }} </h2> 
+		</ul>
+	</ion-list>-->
 </ion-content>
+
+
+<html>
+
+<!--
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+  <title>Ionic Tabs + SideMenu</title>
+
+    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+
+  <script src="https://code.ionicframework.com/collide/0.0.4/collide.js"></script>
+  
+  <script id="templates/playlist.html" type="text/ng-template">
+    <ion-view view-title="Playlist">
+      <ion-content>
+        <h1>Playlist</h1>
+      </ion-content>
+    </ion-view>
+  </script>
+  
+  <script id="templates/playlists.html" type="text/ng-template">
+    <ion-view view-title="Ionic Tabs + SideMenu">
+      <ion-content>
+        <ion-list>
+          <ion-item *ngFor="let producteur of producteurs">
+    		{{producteur.nom}} 
+    		{{producteur.prenom}} 
+    		</ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-view>
+  </script>
+  
+  <script id="templates/search.html" type="text/ng-template">
+    <ion-view view-title="Search">
+      <ion-content>
+        <h1>Search</h1>
+      </ion-content>
+    </ion-view>
+  </script>
+  
+</head>
+
+  <body ng-app="starter">
+    <ion-nav-view></ion-nav-view>
+  </body>
+
+</html>
+-->
+
