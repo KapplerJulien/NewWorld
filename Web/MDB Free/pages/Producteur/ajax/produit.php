@@ -1,12 +1,12 @@
 <?php
 include '../../../fonction/fonction.php';
 
-$categorie = $_POST["nomCategorie"];
+$categorie = $_POST["libelle"];
 $result =  listeProduits($categorie);
 $recupProduit = "";
 while($data = mysql_fetch_assoc($result)){
 	// var_dump($data);
-	$recupProduit .= "<button type='button' class='btn btn-default' onclick=' afficheFormulaire();' id='".$data["libelleProd"]. "'>".$data["libelleProd"]."</button>";
+	$recupProduit .= "<button type='button' class='btn btn-default' onclick=' affichageLot(\"".$data["libelleProd"]."\");' id='".$data["libelleProd"]. "'>".$data["libelleProd"]."</button>";
 }
 
 header('Content-type: application/json');

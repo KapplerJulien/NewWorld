@@ -27,6 +27,9 @@
                         <li class="nav-item">
                             <a class="nav-link">Distribuer</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/~jkappler/MDB Free/pages/inscription.php">Inscription</a>
+                        </li>
                         <li class="nav-item dropdown btn-group">
                             <a class="nav-link" href="/~jkappler/MDB Free/pages/connexion.php">Connexion</a>
                         </li>
@@ -43,13 +46,13 @@
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/~jkappler/MDB Free/pages/Producteur/produits.php">Produits</a>
+                    <a class="nav-link" href="/~jkappler/MDB Free/pages/Producteur/ajoutLots.php">Ajout lots</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"></a>
+                    <a class="nav-link" href="/~jkappler/MDB Free/pages/Producteur/mesLots.php">Mes Lots</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"></a>
+                    <a class="nav-link" href="/~jkappler/MDB Free/pages/profil.php">Profil</a>
                 </li>
                 <li class="nav-item dropdown btn-group">
                     <a class="nav-link" href="/~jkappler/MDB Free/pages/deconnexion.php">Deconnexion</a>
@@ -72,10 +75,10 @@
                     <a class="nav-link" href="/~jkappler/MDB Free/pages/Client/catalogue.php">Catalogue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"></a>
+                    <a class="nav-link" href="/~jkappler/MDB Free/pages/Client/panier.php">Panier</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"></a>
+                    <a class="nav-link" href="/~jkappler/MDB Free/pages/profil.php">Profil</a>
                 </li>
                 <li class="nav-item dropdown btn-group">
                     <a class="nav-link" href="/~jkappler/MDB Free/pages/deconnexion.php">Deconnexion</a>

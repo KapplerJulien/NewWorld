@@ -8,33 +8,6 @@ function ptsDeVente(){
 	return $result;
 } 
 
-function bddAjoutConso($rue, $cp, $ville, $login, $email, $questS, $repS, $tel, $mdp){
-	$id = idMax()+1;
-	// echo $mdp;
-	// echo '<br>';
-        // echo $id;
-	// echo '<br>';
-
-	// Requête SQL
-	$texteReq="insert into Utilisateur(identifiant,adresse1,codePostal,ville,pseudo,motDePasse,email,verifie,questionSecrete,reponseSecrete,telephone,telephoneFix) values($id,'$rue',$cp,'$ville','$login','$mdp','$email',0,'$questS','$repS','$tel','0000000000'); ";
-	echo $texteReq;
-	$result = mysql_query($texteReq) or die ('bddAjoutConso');
-
-	return $result;
-}
-
-function idMax(){
-	// Requête SQL
-	$requete = "select ifnull(max(identifiant),0) as idMax from Utilisateur;";	
-	$result = mysql_query($requete) or die ('idMax');
-	if($donnees = mysql_fetch_assoc($result))
-	{
-   		$id = $donnees['idMax'];
-	}
-	// echo $result;
-	return $id;
-}
-
 function rand_string( $length ) {
 
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -187,6 +160,112 @@ function modifMdp($nouveauMdp, $idUtilisateur){
 function modifEtat($etat, $idUtilisateur){
 	$requete = "update utilisateur set etatU ='".$etat."' where idU = ".$idUtilisateur.";";
 	mysql_query($requete);
+}
+
+function recupProfil($idUtilisateur){
+	$requete = "select prenomU,nomU,adresseU,villeU,emailU,telephoneU,codePostalU,pseudoU from utilisateur where idU=".$idUtilisateur.";";
+	$result = mysql_query($requete);
+	$tabU = mysql_fetch_assoc($result);
+	return $tabU;
+}
+
+function modifProfil($id, $nom, $prenom, $adresse, $cp, $ville, $tel, $email, $pseudo){
+	$requete="update utilisateur set nomU='".$nom."' , prenomU='".$prenom."' , adresseU='".$adresse."' , codePostalU='".$cp."' , villeU='".$ville."' , telephoneU='".$tel."' , emailU='".$email."' , pseudoU='".$pseudo."' where idU=".$id.";";
+	mysql_query($requete) or die ("modifProfil");
+}
+
+function ajoutUtilisateur($pseudo, $nom, $prenom, $email, $telephone, $type){
+	$requeteIdType = "select idTypeU from typeUtilisateur where libelletypeU='".$type."';";
+	$result = mysql_query($requeteIdType);
+	if($data = mysql_fetch_assoc($result)){
+		$idTypeU = $data["idTypeU"];
+	}
+	$idUtilisateurMax = idMaxUtilisateur();
+	$requete = "insert into utilisateur(idU,prenomU,nomU,pseudoU,emailU,telephoneU,idTypeU) values(".$idUtilisateurMax.",'".$prenom."','".$nom."','".$pseudo."','".$email."','".$telephone."',".$idTypeU.");";
+	echo $requete;
+	mysql_query($requete) or die ("ajoutUtilisateur");
+}
+
+function idMaxUtilisateur(){
+	$requete = "select ifnull(max(idU),0)+1 as idMax from utilisateur;";
+	$result = mysql_query($requete) or die ("idMaxUtilisateur");
+	if($data = mysql_fetch_assoc($result)){
+		$id = $data["idMax"];
+	}
+	return $id;
+}
+
+function recupQuestion(){
+	$requete = "select libelleQuestion from question where idQuestion != 1;";
+	$result = mysql_query($requete);
+	return $result;
+}
+
+function recupPdvClient(){
+	
+}
+
+function recupUnite()
+{
+    $texteRequete="select libelleUnite from unite;";
+    $resultat=mysql_query($texteRequete);
+    return $resultat;
+}
+
+function remplireLot($qte,$jour,$mois,$annees,$conservation,$modeProd,$ramassage,$prix,$unite,$produit,$idUser)
+{
+    if($ramassage=='manuel')
+    {
+        $ram=1;
+    }
+    else
+    {
+        $ram=0;
+    }
+    //recuperer l'id max +1 pour incrementer
+    $requeteIdMax="select max(idLot)+1 from lot;";
+    $resultatIdMax=mysql_query($requeteIdMax);
+    $tabInfosIdMax=mysql_fetch_array($resultatIdMax);
+    $maxId=$tabInfosIdMax[0];
+    //recuperer l'id du produit selectionner
+    $requeteIdProd="select idProd from produit where libelleProd='".$produit."' ;";
+    $resultatIdProd=mysql_query($requeteIdProd);
+    $tabInfosIdProd=mysql_fetch_array($resultatIdProd);
+    $idProd=$tabInfosIdProd[0];
+    //recuperer l'id de l'unite
+    $texteRequeteIdUnite="select idUnite from unite where libelleUnite='".$unite."' ;";
+    $resultatIdUnite=mysql_query($texteRequeteIdUnite);
+    $tabInfosIdUnite=mysql_fetch_array($resultatIdUnite);
+    $idUnite=$tabInfosIdUnite[0];
+    //requete finale pour l'insertion du lot
+    $texteRequete="insert into lot (idLot,quantiteLot,dateRecolteLot,nbJourConservationLot,uniteDeVenteLot,modeProductionLot,ramassageManuelLot,prixUnitaireLot,idProd,idU,idUnite) values (".$maxId.",".$qte.",'".$annees."-".$mois."-".$jour."',".$conservation.",0,'".$modeProd."',".$ram.",".$prix.",".$idProd.",".$idUser.",".$idUnite.");";
+    //echo $texteRequete;
+    mysql_query($texteRequete);
+    //echo mysql_error();
+}
+
+function mesLots($idUser)
+{
+    $requeteLotProducteur="select p.libelleProd,l.quantiteLot - l.uniteDeVenteLot as quantiteRestante,l.quantiteLot,l.prixUnitaireLot from lot l inner join produit p on l.idProd=p.idProd where l.idU=".$idUser.";";
+    $resultat=mysql_query($requeteLotProducteur);
+    return $resultat;
+}
+
+function addDemandeProd($libelle,$description,$cat)
+{
+    //
+    $requeteIdMax="select max(idProd)+1 from produit;";
+    $resultatIdMax=mysql_query($requeteIdMax);
+    $tabInfosIdMax=mysql_fetch_array($resultatIdMax);
+    $maxId=$tabInfosIdMax[0];
+    //
+    $requeteIdCat="select idCat from categorie where libelleCat='".$cat."' ;";
+    $resultatIdCat=mysql_query($requeteIdCat);
+    $tabInfosIdCat=mysql_fetch_array($resultatIdCat);
+    $idCat=$tabInfosIdCat[0];
+    //
+    $texteRequete="insert into produit (idProd,libelleProd,supprimeProd,etatprod,descriptionProd,idCat) values(".$maxId.",'".$libelle."',0,'ATT','".$description."',".$idCat.");";
+    mysql_query($texteRequete);
 }
 
 ?>
