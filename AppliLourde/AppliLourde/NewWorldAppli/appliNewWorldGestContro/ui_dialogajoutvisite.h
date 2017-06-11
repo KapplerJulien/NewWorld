@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dialogajoutvisite.ui'
 **
-** Created by: Qt User Interface Compiler version 5.3.2
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -105,15 +105,15 @@ public:
 
     void retranslateUi(QDialog *DialogAjoutVisite)
     {
-        DialogAjoutVisite->setWindowTitle(QApplication::translate("DialogAjoutVisite", "Dialog", 0));
-        label_2->setText(QApplication::translate("DialogAjoutVisite", "Contr\303\264leur \303\240 choisir :", 0));
+        DialogAjoutVisite->setWindowTitle(QApplication::translate("DialogAjoutVisite", "Ajout visite", Q_NULLPTR));
+        label_2->setText(QApplication::translate("DialogAjoutVisite", "Contr\303\264leur \303\240 choisir :", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidgetControleur->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("DialogAjoutVisite", "Nom", 0));
+        ___qtablewidgetitem->setText(QApplication::translate("DialogAjoutVisite", "Nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidgetControleur->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("DialogAjoutVisite", "Prenom", 0));
+        ___qtablewidgetitem1->setText(QApplication::translate("DialogAjoutVisite", "Prenom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidgetControleur->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("DialogAjoutVisite", "Ville", 0));
-        label->setText(QApplication::translate("DialogAjoutVisite", "Date ( format : AAAA-MM-JJ) : ", 0));
+        ___qtablewidgetitem2->setText(QApplication::translate("DialogAjoutVisite", "Ville", Q_NULLPTR));
+        label->setText(QApplication::translate("DialogAjoutVisite", "Date ( format : AAAA-MM-JJ) : ", Q_NULLPTR));
     } // retranslateUi
 
 };

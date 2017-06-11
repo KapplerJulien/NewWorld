@@ -12,7 +12,7 @@
 #include <QGraphicsEllipseItem>
 #include "dialogajoutvisite.h"
 
-MainWindowGestionnaires::MainWindowGestionnaires(QWidget *parent) :
+MainWindowGestionnaires::MainWindowGestionnaires(QString id,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindowGestionnaires)
 {
@@ -22,6 +22,7 @@ MainWindowGestionnaires::MainWindowGestionnaires(QWidget *parent) :
     chargementListRayon();
     chargementListProduitsDemandes();
     chargementProducteur();
+    idSession = id;
 }
 
 MainWindowGestionnaires::~MainWindowGestionnaires()
@@ -71,7 +72,7 @@ void MainWindowGestionnaires::on_pushButtonValider_clicked()
         rue = ui->lineEditRue->text();
         codePostale = ui->lineEditCodePostal->text();
         ville = ui->lineEditVille->text();
-        tel = ui->lineEditTel->text();
+        // tel = ui->lineEditTel->text();
         // telFix = ui->lineEditTelFix->text();
         if(ui->radioButtonControleur->isChecked()){
             type = "1";
@@ -84,11 +85,11 @@ void MainWindowGestionnaires::on_pushButtonValider_clicked()
         QString dateAjd = QDate::currentDate().toString("yyyy-MM-dd");
         qDebug() << dateAjd;
         // Requête d'ajout des infos Utilisateur
-        QString requeteAjoutUtilisateur = "insert into personnel(idPers, nomPers, prenomPers,loginPers,adressePers,codePostalPers,villePers,telPers,idTypeP,motDePassePers,dateEmbauchePers,supprimePers) values (";
+        QString requeteAjoutUtilisateur = "insert into personnel(idPers, nomPers, prenomPers,loginPers,adressePers,codePostalPers,villePers,idTypeP,motDePassePers,dateEmbauchePers,supprimePers) values (";
         qDebug() << idMaxUtilisateur;
         requeteAjoutUtilisateur += QString::number(idMaxUtilisateur);
         rue = rue.replace("'", "\\'");
-        requeteAjoutUtilisateur +=",'" + nom + "','" + prenom + "','" + pseudo + "','" + rue + "'," + codePostale + ",'" + ville + "'," + tel + "," + type + ",'" + mdpInitial + "','"+ dateAjd +"',0);";
+        requeteAjoutUtilisateur +=",'" + nom + "','" + prenom + "','" + pseudo + "','" + rue + "'," + codePostale + ",'" + ville + "'," + "," + type + ",'" + mdpInitial + "','"+ dateAjd +"',0);";
         qDebug() << requeteAjoutUtilisateur;
         // Requête d'ajout du nom et prénom dans Gestionnaire
         // QString requeteAjoutGestionnaire = "insert into Gestionnaire(id,nom,prenom,idUtilisateur) values (";
@@ -108,7 +109,7 @@ void MainWindowGestionnaires::on_pushButtonValider_clicked()
         QString rueChange = ui->lineEditRue->text();
         QString cpChange = ui->lineEditCodePostal->text();
         QString villeChange = ui->lineEditVille->text();
-        QString telChange = ui->lineEditTel->text();
+        // QString telChange = ui->lineEditTel->text();
         // QString telFChange = ui->lineEditTelFix->text();
         QString typeChange;
         if(ui->radioButtonControleur->isChecked()){
@@ -116,6 +117,7 @@ void MainWindowGestionnaires::on_pushButtonValider_clicked()
         } else {
             typeChange = "2";
         }
+        qDebug() << nom;
         if(nom != nomChange){
             QSqlQuery modifBdd("update personnel set nomPers ='"+ nomChange + "' where idPers =" + id + ";" );
             // qDebug() << nomChange + id;
@@ -137,10 +139,10 @@ void MainWindowGestionnaires::on_pushButtonValider_clicked()
             QSqlQuery modifBdd("update personnel set villePers='"+ villeChange + "' where idPers="+ id +";");
             modifBdd.exec();
         }
-        if(tel != telChange){
+        /*if(tel != telChange){
             QSqlQuery modifBdd("update personnel set telPers="+ telChange + " where idPers="+ id +";");
             modifBdd.exec();
-        }
+        }*/
         /*if(telFix != telFChange){
             QSqlQuery modifBdd("update Utilisateur set telFix="+ telFChange + " where id="+ id +";");
             modifBdd.exec();
@@ -149,6 +151,7 @@ void MainWindowGestionnaires::on_pushButtonValider_clicked()
             QSqlQuery modifBdd("update personnel set idTypeP='"+ typeChange + "' where idPers="+ id +";");
             modifBdd.exec();
         }
+        remplissageTableau();
     }
 }
 
@@ -169,7 +172,7 @@ void MainWindowGestionnaires::remplissageTableau()
 {
     qDebug() << "void MainWindowGestionnaires::remplissageTableau()";
     // Requête de récupération des infos Utilisateur
-    QSqlQuery rechercheUtilisateur("Select idPers, nomPers, prenomPers, adressePers, codePostalPers, villePers, telPers, idTypeP from personnel where supprimePers = 0;");
+    QSqlQuery rechercheUtilisateur("Select idPers, nomPers, prenomPers, adressePers, codePostalPers, villePers, idTypeP from personnel where supprimePers = 0;");
     // Requête de récupération du nom et prénom
     // QSqlQuery rechercheGestionnaire("Select nom, prenom from Gestionnaire;");
     int row = 0;
@@ -200,10 +203,11 @@ void MainWindowGestionnaires::remplissageTableau()
         QTableWidgetItem * infosVilleItem = new QTableWidgetItem(infosVille);
         ui->tableWidgetEmploye->setItem(row, 4, infosVilleItem);
 
-        QString infosTel = rechercheUtilisateur.value("telPers").toString();
+        /*QString infosTel = rechercheUtilisateur.value("telPers").toString();
         qDebug() << infosTel;
         QTableWidgetItem * infosTelItem = new QTableWidgetItem(infosTel);
         ui->tableWidgetEmploye->setItem(row, 5, infosTelItem);
+        */
 
         /*QString infosTelFix = rechercheUtilisateur.value("telFix").toString();
         qDebug() << infosTelFix;
@@ -237,13 +241,13 @@ void MainWindowGestionnaires::on_pushButtonModifEmploye_clicked()
     id = ui->tableWidgetEmploye->item(row,0)->data(32).toString();
     qDebug() << id;
     // Récupération des données Utilisateur
-    QSqlQuery recupUtilisateur("select nomPers, prenomPers, adressePers,codePostalPers,villePers,telPers, idTypeP from personnel where idPers=" + id + ";");
+    QSqlQuery recupUtilisateur("select nomPers, prenomPers, adressePers,codePostalPers,villePers, idTypeP from personnel where idPers=" + id + ";");
     if(recupUtilisateur.next()){
         rue = recupUtilisateur.value("adressePers").toString();
         codePostale = recupUtilisateur.value("codePostalPers").toString();
         ville = recupUtilisateur.value("villePers").toString();
-        tel = recupUtilisateur.value("telPers").toString();
-        // telFix = recupUtilisateur.value("telFix").toString();
+        // tel = recupUtilisateur.value("telPers").toString();
+        // telFix = recupUtilisateur.value("telFix").toString;()
         type = recupUtilisateur.value("idTypeP").toString();
         nom = recupUtilisateur.value("nomPers").toString();
         prenom = recupUtilisateur.value("prenomPers").toString();
@@ -630,20 +634,44 @@ void MainWindowGestionnaires::on_tableWidgetProducteurPremVisite_clicked(const Q
 
 void MainWindowGestionnaires::on_pushButtonAjoutVisite_clicked()
 {
+    QSqlQuery recupIdVisite("select ifnull(max(idVisite),0)+1 as maxId from visite;");
+    if(recupIdVisite.next()){
+        idMaxVisite = recupIdVisite.value("maxId").toString();
+    }
+    QList<QTableWidgetItem*> itemSelectionne = ui->tableWidgetProducteurVisite->selectedItems();
+    int row = itemSelectionne[0]->row();
+    QString idUtilisateur = ui->tableWidgetProducteurVisite->item(row,0)->data(32).toString();
     DialogAjoutVisite ajoutVisite;
     if(ajoutVisite.exec()==DialogAjoutVisite::Accepted){
         QString dateVisite = ajoutVisite.getDateVisite();
+        QString idControleur = ajoutVisite.getIdControleur();
         qDebug() << dateVisite;
-        // QSqlQuery ajoutVisite("insert into ");
+        // demandé le libelle
+        QSqlQuery ajoutVisite("insert into visite(idVisite,libelleVisite,dateVisite,gestionnaire,controleur) values("+idMaxVisite+",'','"+dateVisite+"',"+idSession+","+idUtilisateur+");");
+        ajoutVisite.exec();
+        QSqlQuery ajoutControleProducteur("insert into controleProducteur(idVisite, idU) values("+idMaxVisite+","+idUtilisateur+"); ");
+        ajoutControleProducteur.exec();
     }
 }
 
 void MainWindowGestionnaires::on_pushButtonAjoutPremVisite_clicked()
 {
+    QSqlQuery recupIdVisite("select ifnull(max(idVisite),0)+1 as maxId from visite;");
+    if(recupIdVisite.next()){
+        idMaxVisite = recupIdVisite.value("maxId").toInt();
+    }
+    QList<QTableWidgetItem*> itemSelectionne = ui->tableWidgetProducteurVisite->selectedItems();
+    int row = itemSelectionne[0]->row();
+    QString idUtilisateur = ui->tableWidgetProducteurVisite->item(row,0)->data(32).toString();
     DialogAjoutVisite ajoutVisite;
     if(ajoutVisite.exec()==DialogAjoutVisite::Accepted){
         QString dateVisite = ajoutVisite.getDateVisite();
+        QString idControleur = ajoutVisite.getIdControleur();
         qDebug() << dateVisite;
-        // QSqlQuery ajoutVisite("insert into ");
+        // demandé le libelle
+        QSqlQuery ajoutVisite("insert into visite(idVisite,libelleVisite,dateVisite,gestionnaire,controleur) values("+idMaxVisite+",'Première visite','"+dateVisite+"',"+idSession+","+idUtilisateur+");");
+        ajoutVisite.exec();
+        QSqlQuery ajoutControleProducteur("insert into controleProducteur(idVisite, idU) values("+idMaxVisite+","+idUtilisateur+"); ");
+        ajoutControleProducteur.exec();
     }
 }

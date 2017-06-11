@@ -48,6 +48,21 @@ void DialogAjoutVisite::chargementControleur(){
     }
 }
 
+QString DialogAjoutVisite::getIdControleur()
+{
+    QList<QTableWidgetItem*> itemSelectionne = ui->tableWidgetControleur->selectedItems();
+    qDebug() << itemSelectionne.count();
+    int row = itemSelectionne[0]->row();
+    qDebug() << row;
+    idControleur = ui->tableWidgetControleur->item(row,0)->data(32).toString();
+    return idControleur;
+}
+
+void DialogAjoutVisite::setIdControleur(const QString &value)
+{
+    idControleur = value;
+}
+
 
 
 

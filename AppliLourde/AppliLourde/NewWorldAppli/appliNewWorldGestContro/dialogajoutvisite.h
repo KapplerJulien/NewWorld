@@ -18,11 +18,15 @@ public:
     QString getDateVisite() const;
     void setDateVisite(const QString &value);
 
+    QString getIdControleur();
+    void setIdControleur(const QString &value);
+
 private slots:
     void chargementControleur();
 private:
     Ui::DialogAjoutVisite *ui;
     QString dateVisite;
+    QString idControleur;
 };
 
 #endif // DIALOGAJOUTVISITE_H

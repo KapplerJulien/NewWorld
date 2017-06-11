@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindowgestionnaires.ui'
 **
-** Created by: Qt User Interface Compiler version 5.3.2
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -696,7 +696,7 @@ public:
         MainWindowGestionnaires->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowGestionnaires);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 837, 27));
+        menubar->setGeometry(QRect(0, 0, 837, 21));
         MainWindowGestionnaires->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindowGestionnaires);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -704,7 +704,7 @@ public:
 
         retranslateUi(MainWindowGestionnaires);
 
-        tabWidgetGestionnaire->setCurrentIndex(1);
+        tabWidgetGestionnaire->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindowGestionnaires);
@@ -712,78 +712,78 @@ public:
 
     void retranslateUi(QMainWindow *MainWindowGestionnaires)
     {
-        MainWindowGestionnaires->setWindowTitle(QApplication::translate("MainWindowGestionnaires", "Gestionnaire", 0));
-        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab_4), QApplication::translate("MainWindowGestionnaires", "Statisitques", 0));
+        MainWindowGestionnaires->setWindowTitle(QApplication::translate("MainWindowGestionnaires", "Gestionnaire", Q_NULLPTR));
+        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab_4), QApplication::translate("MainWindowGestionnaires", "Statisitques", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidgetEmploye->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("MainWindowGestionnaires", "Nom", 0));
+        ___qtablewidgetitem->setText(QApplication::translate("MainWindowGestionnaires", "Prenom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidgetEmploye->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowGestionnaires", "Prenom", 0));
+        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowGestionnaires", "Nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidgetEmploye->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("MainWindowGestionnaires", "rue", 0));
+        ___qtablewidgetitem2->setText(QApplication::translate("MainWindowGestionnaires", "rue", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidgetEmploye->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("MainWindowGestionnaires", "code postal", 0));
+        ___qtablewidgetitem3->setText(QApplication::translate("MainWindowGestionnaires", "code postal", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidgetEmploye->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("MainWindowGestionnaires", "Ville", 0));
+        ___qtablewidgetitem4->setText(QApplication::translate("MainWindowGestionnaires", "Ville", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidgetEmploye->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QApplication::translate("MainWindowGestionnaires", "T\303\251l\303\251phone", 0));
+        ___qtablewidgetitem5->setText(QApplication::translate("MainWindowGestionnaires", "T\303\251l\303\251phone", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidgetEmploye->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QApplication::translate("MainWindowGestionnaires", "Type", 0));
-        pushButtonModifEmploye->setText(QApplication::translate("MainWindowGestionnaires", "Modifier la selection", 0));
-        pushButtonSupprimer->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer la selection", 0));
-        labelEmploye->setText(QApplication::translate("MainWindowGestionnaires", "Ajout d'un employ\303\251.", 0));
-        label->setText(QApplication::translate("MainWindowGestionnaires", "Nom : ", 0));
-        label_2->setText(QApplication::translate("MainWindowGestionnaires", "Prenom :", 0));
-        label_9->setText(QApplication::translate("MainWindowGestionnaires", "Pseudo :", 0));
-        label_3->setText(QApplication::translate("MainWindowGestionnaires", "rue :", 0));
-        label_4->setText(QApplication::translate("MainWindowGestionnaires", "Code postal :", 0));
-        label_5->setText(QApplication::translate("MainWindowGestionnaires", "Ville :", 0));
-        label_6->setText(QApplication::translate("MainWindowGestionnaires", "Tel :", 0));
-        label_8->setText(QApplication::translate("MainWindowGestionnaires", "Type :", 0));
-        radioButtonGestionnaire->setText(QApplication::translate("MainWindowGestionnaires", "Gestionnaire", 0));
-        radioButtonControleur->setText(QApplication::translate("MainWindowGestionnaires", "Controleur", 0));
-        pushButtonAnnuler->setText(QApplication::translate("MainWindowGestionnaires", "Annuler", 0));
-        pushButtonValider->setText(QApplication::translate("MainWindowGestionnaires", "Valider", 0));
-        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab), QApplication::translate("MainWindowGestionnaires", "Personnel", 0));
-        label_10->setText(QApplication::translate("MainWindowGestionnaires", "Rayons ", 0));
-        pushButtonSupprimerRayons->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer", 0));
-        pushButtonAjouterRayons->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", 0));
-        label_11->setText(QApplication::translate("MainWindowGestionnaires", "Cat\303\251gories", 0));
-        pushButtonSupprimerCategories->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer", 0));
-        pushButtonAjouterCategories->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", 0));
-        label_12->setText(QApplication::translate("MainWindowGestionnaires", "Produits", 0));
-        pushButtonSupprimerProduits->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer", 0));
-        pushButtonAjouterProduits->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", 0));
-        label_13->setText(QApplication::translate("MainWindowGestionnaires", "Ajout de produit : ", 0));
-        label_14->setText(QApplication::translate("MainWindowGestionnaires", "Produits demand\303\251s :", 0));
-        pushButtonAjouterProduitsDemandes->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", 0));
-        pushButtonRefuserProduitsDemandes->setText(QApplication::translate("MainWindowGestionnaires", "Refuser", 0));
-        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab_3), QApplication::translate("MainWindowGestionnaires", "Rayon/Type produit", 0));
-        label_15->setText(QApplication::translate("MainWindowGestionnaires", "Producteur : ", 0));
+        ___qtablewidgetitem6->setText(QApplication::translate("MainWindowGestionnaires", "Type", Q_NULLPTR));
+        pushButtonModifEmploye->setText(QApplication::translate("MainWindowGestionnaires", "Modifier la selection", Q_NULLPTR));
+        pushButtonSupprimer->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer la selection", Q_NULLPTR));
+        labelEmploye->setText(QApplication::translate("MainWindowGestionnaires", "Ajout d'un employ\303\251.", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom : ", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindowGestionnaires", "Nom :", Q_NULLPTR));
+        label_9->setText(QApplication::translate("MainWindowGestionnaires", "Pseudo :", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindowGestionnaires", "rue :", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindowGestionnaires", "Code postal :", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindowGestionnaires", "Ville :", Q_NULLPTR));
+        label_6->setText(QApplication::translate("MainWindowGestionnaires", "Tel :", Q_NULLPTR));
+        label_8->setText(QApplication::translate("MainWindowGestionnaires", "Type :", Q_NULLPTR));
+        radioButtonGestionnaire->setText(QApplication::translate("MainWindowGestionnaires", "Gestionnaire", Q_NULLPTR));
+        radioButtonControleur->setText(QApplication::translate("MainWindowGestionnaires", "Controleur", Q_NULLPTR));
+        pushButtonAnnuler->setText(QApplication::translate("MainWindowGestionnaires", "Annuler", Q_NULLPTR));
+        pushButtonValider->setText(QApplication::translate("MainWindowGestionnaires", "Valider", Q_NULLPTR));
+        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab), QApplication::translate("MainWindowGestionnaires", "Personnel", Q_NULLPTR));
+        label_10->setText(QApplication::translate("MainWindowGestionnaires", "Rayons ", Q_NULLPTR));
+        pushButtonSupprimerRayons->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer", Q_NULLPTR));
+        pushButtonAjouterRayons->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", Q_NULLPTR));
+        label_11->setText(QApplication::translate("MainWindowGestionnaires", "Cat\303\251gories", Q_NULLPTR));
+        pushButtonSupprimerCategories->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer", Q_NULLPTR));
+        pushButtonAjouterCategories->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", Q_NULLPTR));
+        label_12->setText(QApplication::translate("MainWindowGestionnaires", "Produits", Q_NULLPTR));
+        pushButtonSupprimerProduits->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer", Q_NULLPTR));
+        pushButtonAjouterProduits->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", Q_NULLPTR));
+        label_13->setText(QApplication::translate("MainWindowGestionnaires", "Ajout de produit : ", Q_NULLPTR));
+        label_14->setText(QApplication::translate("MainWindowGestionnaires", "Produits demand\303\251s :", Q_NULLPTR));
+        pushButtonAjouterProduitsDemandes->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter", Q_NULLPTR));
+        pushButtonRefuserProduitsDemandes->setText(QApplication::translate("MainWindowGestionnaires", "Refuser", Q_NULLPTR));
+        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab_3), QApplication::translate("MainWindowGestionnaires", "Rayon/Type produit", Q_NULLPTR));
+        label_15->setText(QApplication::translate("MainWindowGestionnaires", "Producteur : ", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidgetProducteurVisite->horizontalHeaderItem(0);
-        ___qtablewidgetitem7->setText(QApplication::translate("MainWindowGestionnaires", "Nom", 0));
+        ___qtablewidgetitem7->setText(QApplication::translate("MainWindowGestionnaires", "Nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidgetProducteurVisite->horizontalHeaderItem(1);
-        ___qtablewidgetitem8->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom", 0));
+        ___qtablewidgetitem8->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem9 = tableWidgetProducteurVisite->horizontalHeaderItem(2);
-        ___qtablewidgetitem9->setText(QApplication::translate("MainWindowGestionnaires", "Ville", 0));
+        ___qtablewidgetitem9->setText(QApplication::translate("MainWindowGestionnaires", "Ville", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem10 = tableWidgetProducteurVisite->horizontalHeaderItem(3);
-        ___qtablewidgetitem10->setText(QApplication::translate("MainWindowGestionnaires", "Date visite", 0));
-        pushButtonAjoutVisite->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter Visite", 0));
-        label_16->setText(QApplication::translate("MainWindowGestionnaires", "Producteur o\303\271 la premi\303\250re visite doit \303\252tre fait : ", 0));
+        ___qtablewidgetitem10->setText(QApplication::translate("MainWindowGestionnaires", "Date visite", Q_NULLPTR));
+        pushButtonAjoutVisite->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter Visite", Q_NULLPTR));
+        label_16->setText(QApplication::translate("MainWindowGestionnaires", "Producteur o\303\271 la premi\303\250re visite doit \303\252tre fait : ", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem11 = tableWidgetProducteurPremVisite->horizontalHeaderItem(0);
-        ___qtablewidgetitem11->setText(QApplication::translate("MainWindowGestionnaires", "Nom", 0));
+        ___qtablewidgetitem11->setText(QApplication::translate("MainWindowGestionnaires", "Nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem12 = tableWidgetProducteurPremVisite->horizontalHeaderItem(1);
-        ___qtablewidgetitem12->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom", 0));
+        ___qtablewidgetitem12->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem13 = tableWidgetProducteurPremVisite->horizontalHeaderItem(2);
-        ___qtablewidgetitem13->setText(QApplication::translate("MainWindowGestionnaires", "Ville", 0));
-        pushButtonAjoutPremVisite->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter Visite", 0));
-        label_17->setText(QApplication::translate("MainWindowGestionnaires", "Contr\303\264leur (cliquez dessus pour voir ses visites) : ", 0));
+        ___qtablewidgetitem13->setText(QApplication::translate("MainWindowGestionnaires", "Ville", Q_NULLPTR));
+        pushButtonAjoutPremVisite->setText(QApplication::translate("MainWindowGestionnaires", "Ajouter Visite", Q_NULLPTR));
+        label_17->setText(QApplication::translate("MainWindowGestionnaires", "Contr\303\264leur (cliquez dessus pour voir ses visites) : ", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem14 = tableWidgetControleurVisite->horizontalHeaderItem(0);
-        ___qtablewidgetitem14->setText(QApplication::translate("MainWindowGestionnaires", "Nom", 0));
+        ___qtablewidgetitem14->setText(QApplication::translate("MainWindowGestionnaires", "Nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem15 = tableWidgetControleurVisite->horizontalHeaderItem(1);
-        ___qtablewidgetitem15->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom", 0));
+        ___qtablewidgetitem15->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem16 = tableWidgetControleurVisite->horizontalHeaderItem(2);
-        ___qtablewidgetitem16->setText(QApplication::translate("MainWindowGestionnaires", "Ville", 0));
-        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab_2), QApplication::translate("MainWindowGestionnaires", "Visites", 0));
+        ___qtablewidgetitem16->setText(QApplication::translate("MainWindowGestionnaires", "Ville", Q_NULLPTR));
+        tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab_2), QApplication::translate("MainWindowGestionnaires", "Visites", Q_NULLPTR));
     } // retranslateUi
 
 };

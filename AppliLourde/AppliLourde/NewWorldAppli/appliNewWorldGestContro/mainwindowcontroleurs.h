@@ -17,9 +17,19 @@ public:
     
 private slots:
     void chargementVisite();
+    void on_tableWidgetProducteur_clicked(const QModelIndex &index);
+
+    void on_pushButtonModifierVisite_clicked();
+
+    void on_pushButtonModifier_clicked();
+
 private:
     Ui::MainWindowControleurs *ui;
     QString idControleur;
+    QString visiteConcluante;
+    QString date;
+    QString motifRejet;
+    QString idProducteur;
 };
 
 #endif // MAINWINDOWCONTROLEURS_H

@@ -16,7 +16,7 @@ class MainWindowGestionnaires : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindowGestionnaires(QWidget *parent = 0);
+    explicit MainWindowGestionnaires(QString id, QWidget *parent = 0);
     ~MainWindowGestionnaires();
     void remplissageTableau();
     
@@ -86,6 +86,7 @@ private:
     Ui::MainWindowGestionnaires *ui;
     int idMaxUtilisateur;
     int idMaxGestionnaire;
+    QString idMaxVisite;
     QString id;
     QString nom;
     QString prenom;
@@ -102,6 +103,8 @@ private:
     QString idCategorie;
     QString idRayon;
     QString idProduit;
+
+    QString idSession;
 };
 
 #endif // MAINWINDOWGESTIONNAIRES_H
