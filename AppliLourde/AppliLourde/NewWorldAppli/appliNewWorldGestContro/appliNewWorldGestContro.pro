@@ -16,16 +16,19 @@ SOURCES += main.cpp\
     mainwindowgestionnaires.cpp \
     mainwindowcontroleurs.cpp \
     dialogconnexion.cpp \
-    dialogajoutvisite.cpp
+    dialogajoutvisite.cpp \
+    dialogvisitecontroleur.cpp
 
 HEADERS  += \
     mainwindowgestionnaires.h \
     mainwindowcontroleurs.h \
     dialogconnexion.h \
-    dialogajoutvisite.h
+    dialogajoutvisite.h \
+    dialogvisitecontroleur.h
 
 FORMS    += \
     mainwindowgestionnaires.ui \
     mainwindowcontroleurs.ui \
     dialogconnexion.ui \
-    dialogajoutvisite.ui
+    dialogajoutvisite.ui \
+    dialogvisitecontroleur.ui

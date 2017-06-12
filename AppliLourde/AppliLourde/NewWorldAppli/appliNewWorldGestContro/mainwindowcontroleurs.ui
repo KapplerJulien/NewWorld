@@ -6,43 +6,52 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>658</width>
-    <height>265</height>
+    <width>582</width>
+    <height>251</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Controleur</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QTableWidget" name="tableWidgetProducteur">
-        <column>
-         <property name="text">
-          <string>Nom</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Prenom</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Date de visite</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Modifier visite</string>
-        </property>
-       </widget>
-      </item>
+     <widget class="QTableWidget" name="tableWidgetProducteur">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <column>
+       <property name="text">
+        <string>Nom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Prenom</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Date de visite</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButtonModifierVisite">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Modifier visite</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -69,7 +78,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEditDescription"/>
+           <widget class="QPlainTextEdit" name="plainTextEditDescription">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -93,6 +106,13 @@
         </item>
        </layout>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonModifier">
+        <property name="text">
+         <string>Modifier</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -102,8 +122,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>658</width>
-     <height>27</height>
+     <width>582</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

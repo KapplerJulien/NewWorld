@@ -118,7 +118,6 @@ public:
     QPushButton *pushButtonAjouterProduitsDemandes;
     QPushButton *pushButtonRefuserProduitsDemandes;
     QWidget *tab_2;
-    QVBoxLayout *verticalLayout_15;
     QVBoxLayout *verticalLayout_14;
     QHBoxLayout *horizontalLayout_24;
     QVBoxLayout *verticalLayout_11;
@@ -560,9 +559,7 @@ public:
         tabWidgetGestionnaire->addTab(tab_3, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        verticalLayout_15 = new QVBoxLayout(tab_2);
-        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
-        verticalLayout_14 = new QVBoxLayout();
+        verticalLayout_14 = new QVBoxLayout(tab_2);
         verticalLayout_14->setObjectName(QStringLiteral("verticalLayout_14"));
         horizontalLayout_24 = new QHBoxLayout();
         horizontalLayout_24->setObjectName(QStringLiteral("horizontalLayout_24"));
@@ -686,9 +683,6 @@ public:
 
         verticalLayout_14->addLayout(horizontalLayout_25);
 
-
-        verticalLayout_15->addLayout(verticalLayout_14);
-
         tabWidgetGestionnaire->addTab(tab_2, QString());
 
         verticalLayout_10->addWidget(tabWidgetGestionnaire);
@@ -704,7 +698,7 @@ public:
 
         retranslateUi(MainWindowGestionnaires);
 
-        tabWidgetGestionnaire->setCurrentIndex(1);
+        tabWidgetGestionnaire->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindowGestionnaires);
@@ -715,9 +709,9 @@ public:
         MainWindowGestionnaires->setWindowTitle(QApplication::translate("MainWindowGestionnaires", "Gestionnaire", 0));
         tabWidgetGestionnaire->setTabText(tabWidgetGestionnaire->indexOf(tab_4), QApplication::translate("MainWindowGestionnaires", "Statisitques", 0));
         QTableWidgetItem *___qtablewidgetitem = tableWidgetEmploye->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("MainWindowGestionnaires", "Nom", 0));
+        ___qtablewidgetitem->setText(QApplication::translate("MainWindowGestionnaires", "Prenom", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidgetEmploye->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowGestionnaires", "Prenom", 0));
+        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowGestionnaires", "Nom", 0));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidgetEmploye->horizontalHeaderItem(2);
         ___qtablewidgetitem2->setText(QApplication::translate("MainWindowGestionnaires", "rue", 0));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidgetEmploye->horizontalHeaderItem(3);
@@ -731,8 +725,8 @@ public:
         pushButtonModifEmploye->setText(QApplication::translate("MainWindowGestionnaires", "Modifier la selection", 0));
         pushButtonSupprimer->setText(QApplication::translate("MainWindowGestionnaires", "Supprimer la selection", 0));
         labelEmploye->setText(QApplication::translate("MainWindowGestionnaires", "Ajout d'un employ\303\251.", 0));
-        label->setText(QApplication::translate("MainWindowGestionnaires", "Nom : ", 0));
-        label_2->setText(QApplication::translate("MainWindowGestionnaires", "Prenom :", 0));
+        label->setText(QApplication::translate("MainWindowGestionnaires", "Pr\303\251nom : ", 0));
+        label_2->setText(QApplication::translate("MainWindowGestionnaires", "Nom :", 0));
         label_9->setText(QApplication::translate("MainWindowGestionnaires", "Pseudo :", 0));
         label_3->setText(QApplication::translate("MainWindowGestionnaires", "rue :", 0));
         label_4->setText(QApplication::translate("MainWindowGestionnaires", "Code postal :", 0));

@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
         if(test.exec()==DialogConnexion::Accepted){
             QString id = test.getId();
             if(test.getType() == "2"){
-                MainWindowGestionnaires w;
+                MainWindowGestionnaires w(id);
                 w.show();
                 return a.exec();
             } else if(test.getType() == "1"){

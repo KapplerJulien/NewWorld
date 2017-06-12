@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindowcontroleurs.ui'
 **
-** Created by: Qt User Interface Compiler version 5.3.2
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -19,6 +19,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
@@ -32,20 +33,21 @@ class Ui_MainWindowControleurs
 {
 public:
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_3;
     QTableWidget *tableWidgetProducteur;
-    QPushButton *pushButton;
+    QPushButton *pushButtonModifierVisite;
+    QVBoxLayout *verticalLayout_3;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QLineEdit *lineEditDateVisite;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_2;
-    QLineEdit *lineEditDescription;
+    QPlainTextEdit *plainTextEditDescription;
     QVBoxLayout *verticalLayout;
     QRadioButton *radioButtonValide;
     QRadioButton *radioButtonInvalide;
+    QPushButton *pushButtonModifier;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -53,12 +55,10 @@ public:
     {
         if (MainWindowControleurs->objectName().isEmpty())
             MainWindowControleurs->setObjectName(QStringLiteral("MainWindowControleurs"));
-        MainWindowControleurs->resize(658, 265);
+        MainWindowControleurs->resize(582, 251);
         centralwidget = new QWidget(MainWindowControleurs);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayout_3 = new QVBoxLayout(centralwidget);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3 = new QHBoxLayout(centralwidget);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         tableWidgetProducteur = new QTableWidget(centralwidget);
         if (tableWidgetProducteur->columnCount() < 3)
@@ -70,14 +70,19 @@ public:
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
         tableWidgetProducteur->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         tableWidgetProducteur->setObjectName(QStringLiteral("tableWidgetProducteur"));
+        tableWidgetProducteur->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        tableWidgetProducteur->setSelectionBehavior(QAbstractItemView::SelectRows);
 
         horizontalLayout_3->addWidget(tableWidgetProducteur);
 
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButtonModifierVisite = new QPushButton(centralwidget);
+        pushButtonModifierVisite->setObjectName(QStringLiteral("pushButtonModifierVisite"));
+        pushButtonModifierVisite->setEnabled(false);
 
-        horizontalLayout_3->addWidget(pushButton);
+        horizontalLayout_3->addWidget(pushButtonModifierVisite);
 
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         horizontalLayout = new QHBoxLayout();
@@ -102,10 +107,11 @@ public:
 
         horizontalLayout_2->addWidget(label_2);
 
-        lineEditDescription = new QLineEdit(centralwidget);
-        lineEditDescription->setObjectName(QStringLiteral("lineEditDescription"));
+        plainTextEditDescription = new QPlainTextEdit(centralwidget);
+        plainTextEditDescription->setObjectName(QStringLiteral("plainTextEditDescription"));
+        plainTextEditDescription->setEnabled(true);
 
-        horizontalLayout_2->addWidget(lineEditDescription);
+        horizontalLayout_2->addWidget(plainTextEditDescription);
 
 
         verticalLayout_2->addLayout(horizontalLayout_2);
@@ -126,15 +132,20 @@ public:
         verticalLayout_2->addLayout(verticalLayout);
 
 
-        horizontalLayout_3->addLayout(verticalLayout_2);
+        verticalLayout_3->addLayout(verticalLayout_2);
+
+        pushButtonModifier = new QPushButton(centralwidget);
+        pushButtonModifier->setObjectName(QStringLiteral("pushButtonModifier"));
+
+        verticalLayout_3->addWidget(pushButtonModifier);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_3);
+        horizontalLayout_3->addLayout(verticalLayout_3);
 
         MainWindowControleurs->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowControleurs);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 658, 27));
+        menubar->setGeometry(QRect(0, 0, 582, 21));
         MainWindowControleurs->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindowControleurs);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -147,18 +158,19 @@ public:
 
     void retranslateUi(QMainWindow *MainWindowControleurs)
     {
-        MainWindowControleurs->setWindowTitle(QApplication::translate("MainWindowControleurs", "Controleur", 0));
+        MainWindowControleurs->setWindowTitle(QApplication::translate("MainWindowControleurs", "Controleur", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem = tableWidgetProducteur->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("MainWindowControleurs", "Nom", 0));
+        ___qtablewidgetitem->setText(QApplication::translate("MainWindowControleurs", "Nom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidgetProducteur->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowControleurs", "Prenom", 0));
+        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowControleurs", "Prenom", Q_NULLPTR));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidgetProducteur->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("MainWindowControleurs", "Date de visite", 0));
-        pushButton->setText(QApplication::translate("MainWindowControleurs", "Modifier visite", 0));
-        label->setText(QApplication::translate("MainWindowControleurs", "Date de visite : ", 0));
-        label_2->setText(QApplication::translate("MainWindowControleurs", "Description :", 0));
-        radioButtonValide->setText(QApplication::translate("MainWindowControleurs", "Valide", 0));
-        radioButtonInvalide->setText(QApplication::translate("MainWindowControleurs", "Invalide", 0));
+        ___qtablewidgetitem2->setText(QApplication::translate("MainWindowControleurs", "Date de visite", Q_NULLPTR));
+        pushButtonModifierVisite->setText(QApplication::translate("MainWindowControleurs", "Modifier visite", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindowControleurs", "Date de visite : ", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindowControleurs", "Description :", Q_NULLPTR));
+        radioButtonValide->setText(QApplication::translate("MainWindowControleurs", "Valide", Q_NULLPTR));
+        radioButtonInvalide->setText(QApplication::translate("MainWindowControleurs", "Invalide", Q_NULLPTR));
+        pushButtonModifier->setText(QApplication::translate("MainWindowControleurs", "Modifier", Q_NULLPTR));
     } // retranslateUi
 
 };

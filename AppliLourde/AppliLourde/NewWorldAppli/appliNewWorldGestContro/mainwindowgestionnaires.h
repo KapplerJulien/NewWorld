@@ -16,7 +16,7 @@ class MainWindowGestionnaires : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindowGestionnaires(QWidget *parent = 0);
+    explicit MainWindowGestionnaires(QString id, QWidget *parent = 0);
     ~MainWindowGestionnaires();
     void remplissageTableau();
     
@@ -82,10 +82,13 @@ private slots:
 
     void on_pushButtonAjoutPremVisite_clicked();
 
+    void on_tableWidgetControleurVisite_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindowGestionnaires *ui;
     int idMaxUtilisateur;
     int idMaxGestionnaire;
+    QString idMaxVisite;
     QString id;
     QString nom;
     QString prenom;
@@ -102,6 +105,8 @@ private:
     QString idCategorie;
     QString idRayon;
     QString idProduit;
+
+    QString idSession;
 };
 
 #endif // MAINWINDOWGESTIONNAIRES_H

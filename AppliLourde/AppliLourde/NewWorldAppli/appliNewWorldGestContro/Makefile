@@ -15,10 +15,10 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_SQL_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -isystem /usr/include/i386-linux-gnu/qt5 -isystem /usr/include/i386-linux-gnu/qt5/QtWidgets -isystem /usr/include/i386-linux-gnu/qt5/QtSql -isystem /usr/include/i386-linux-gnu/qt5/QtGui -isystem /usr/include/i386-linux-gnu/qt5/QtCore -I. -I.
+INCPATH       = -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I. -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I. -I.
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Sql -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/lib/i386-linux-gnu -lQt5Widgets -lQt5Sql -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/i386-linux-gnu/qt5/bin/qmake
@@ -49,19 +49,23 @@ SOURCES       = main.cpp \
 		mainwindowgestionnaires.cpp \
 		mainwindowcontroleurs.cpp \
 		dialogconnexion.cpp \
-		dialogajoutvisite.cpp moc_mainwindowgestionnaires.cpp \
+		dialogajoutvisite.cpp \
+		dialogvisitecontroleur.cpp moc_mainwindowgestionnaires.cpp \
 		moc_mainwindowcontroleurs.cpp \
 		moc_dialogconnexion.cpp \
-		moc_dialogajoutvisite.cpp
+		moc_dialogajoutvisite.cpp \
+		moc_dialogvisitecontroleur.cpp
 OBJECTS       = main.o \
 		mainwindowgestionnaires.o \
 		mainwindowcontroleurs.o \
 		dialogconnexion.o \
 		dialogajoutvisite.o \
+		dialogvisitecontroleur.o \
 		moc_mainwindowgestionnaires.o \
 		moc_mainwindowcontroleurs.o \
 		moc_dialogconnexion.o \
-		moc_dialogajoutvisite.o
+		moc_dialogajoutvisite.o \
+		moc_dialogvisitecontroleur.o
 DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -107,6 +111,7 @@ DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
@@ -126,7 +131,8 @@ DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		mainwindowgestionnaires.cpp \
 		mainwindowcontroleurs.cpp \
 		dialogconnexion.cpp \
-		dialogajoutvisite.cpp
+		dialogajoutvisite.cpp \
+		dialogvisitecontroleur.cpp
 QMAKE_TARGET  = appliNewWorldGestContro
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = appliNewWorldGestContro
@@ -156,7 +162,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET): ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutvisite.h $(OBJECTS)  
+$(TARGET): ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutvisite.h ui_dialogvisitecontroleur.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: appliNewWorldGestContro.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -204,6 +210,7 @@ Makefile: appliNewWorldGestContro.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/default_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
@@ -270,6 +277,7 @@ Makefile: appliNewWorldGestContro.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/default_pre.prf:
 /usr/lib/i386-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
@@ -297,7 +305,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/appliNewWorldGestContro1.0.0 || mkdir -p .tmp/appliNewWorldGestContro1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.h mainwindowcontroleurs.h dialogconnexion.h dialogajoutvisite.h .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents main.cpp mainwindowgestionnaires.cpp mainwindowcontroleurs.cpp dialogconnexion.cpp dialogajoutvisite.cpp .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.ui mainwindowcontroleurs.ui dialogconnexion.ui dialogajoutvisite.ui .tmp/appliNewWorldGestContro1.0.0/ && (cd `dirname .tmp/appliNewWorldGestContro1.0.0` && $(TAR) appliNewWorldGestContro1.0.0.tar appliNewWorldGestContro1.0.0 && $(COMPRESS) appliNewWorldGestContro1.0.0.tar) && $(MOVE) `dirname .tmp/appliNewWorldGestContro1.0.0`/appliNewWorldGestContro1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/appliNewWorldGestContro1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.h mainwindowcontroleurs.h dialogconnexion.h dialogajoutvisite.h dialogvisitecontroleur.h .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents main.cpp mainwindowgestionnaires.cpp mainwindowcontroleurs.cpp dialogconnexion.cpp dialogajoutvisite.cpp dialogvisitecontroleur.cpp .tmp/appliNewWorldGestContro1.0.0/ && $(COPY_FILE) --parents mainwindowgestionnaires.ui mainwindowcontroleurs.ui dialogconnexion.ui dialogajoutvisite.ui dialogvisitecontroleur.ui .tmp/appliNewWorldGestContro1.0.0/ && (cd `dirname .tmp/appliNewWorldGestContro1.0.0` && $(TAR) appliNewWorldGestContro1.0.0.tar appliNewWorldGestContro1.0.0 && $(COMPRESS) appliNewWorldGestContro1.0.0.tar) && $(MOVE) `dirname .tmp/appliNewWorldGestContro1.0.0`/appliNewWorldGestContro1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/appliNewWorldGestContro1.0.0
 
 
 clean:compiler_clean 
@@ -320,26 +328,551 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp moc_dialogajoutvisite.cpp
+compiler_moc_header_make_all: moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp moc_dialogajoutvisite.cpp moc_dialogvisitecontroleur.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp moc_dialogajoutvisite.cpp
-moc_mainwindowgestionnaires.cpp: mainwindowgestionnaires.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/jkappler/public_html/MDB Free/AppliLourde/NewWorldAppli/appliNewWorldGestContro' -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include mainwindowgestionnaires.h -o moc_mainwindowgestionnaires.cpp
+	-$(DEL_FILE) moc_mainwindowgestionnaires.cpp moc_mainwindowcontroleurs.cpp moc_dialogconnexion.cpp moc_dialogajoutvisite.cpp moc_dialogvisitecontroleur.cpp
+moc_mainwindowgestionnaires.cpp: /usr/include/i386-linux-gnu/qt5/QtWidgets/QMainWindow \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qicon.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDebug \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlRecord \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlrecord.h \
+		mainwindowgestionnaires.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/AppliLourde/AppliLourde/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward mainwindowgestionnaires.h -o moc_mainwindowgestionnaires.cpp
 
-moc_mainwindowcontroleurs.cpp: mainwindowcontroleurs.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/jkappler/public_html/MDB Free/AppliLourde/NewWorldAppli/appliNewWorldGestContro' -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include mainwindowcontroleurs.h -o moc_mainwindowcontroleurs.cpp
+moc_mainwindowcontroleurs.cpp: /usr/include/i386-linux-gnu/qt5/QtWidgets/QMainWindow \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qicon.h \
+		mainwindowcontroleurs.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/AppliLourde/AppliLourde/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward mainwindowcontroleurs.h -o moc_mainwindowcontroleurs.cpp
 
-moc_dialogconnexion.cpp: dialogconnexion.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/jkappler/public_html/MDB Free/AppliLourde/NewWorldAppli/appliNewWorldGestContro' -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include dialogconnexion.h -o moc_dialogconnexion.cpp
+moc_dialogconnexion.cpp: /usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDebug \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QVector \
+		dialogconnexion.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/AppliLourde/AppliLourde/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward dialogconnexion.h -o moc_dialogconnexion.cpp
 
-moc_dialogajoutvisite.cpp: dialogajoutvisite.h
-	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/jkappler/public_html/MDB Free/AppliLourde/NewWorldAppli/appliNewWorldGestContro' -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -I/usr/include/c++/4.7 -I/usr/include/c++/4.7/i486-linux-gnu -I/usr/include/c++/4.7/backward -I/usr/lib/gcc/i486-linux-gnu/4.7/include -I/usr/local/include -I/usr/lib/gcc/i486-linux-gnu/4.7/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include dialogajoutvisite.h -o moc_dialogajoutvisite.cpp
+moc_dialogajoutvisite.cpp: /usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		dialogajoutvisite.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/AppliLourde/AppliLourde/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward dialogajoutvisite.h -o moc_dialogajoutvisite.cpp
+
+moc_dialogvisitecontroleur.cpp: /usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		dialogvisitecontroleur.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jkappler/AppliLourde/AppliLourde/NewWorldAppli/appliNewWorldGestContro -I/usr/include/i386-linux-gnu/qt5 -I/usr/include/i386-linux-gnu/qt5/QtWidgets -I/usr/include/i386-linux-gnu/qt5/QtSql -I/usr/include/i386-linux-gnu/qt5/QtGui -I/usr/include/i386-linux-gnu/qt5/QtCore -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/newQt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/newQt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward dialogvisitecontroleur.h -o moc_dialogvisitecontroleur.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutvisite.h
+compiler_uic_make_all: ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutvisite.h ui_dialogvisitecontroleur.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutvisite.h
+	-$(DEL_FILE) ui_mainwindowgestionnaires.h ui_mainwindowcontroleurs.h ui_dialogconnexion.h ui_dialogajoutvisite.h ui_dialogvisitecontroleur.h
 ui_mainwindowgestionnaires.h: mainwindowgestionnaires.ui
 	/usr/lib/i386-linux-gnu/qt5/bin/uic mainwindowgestionnaires.ui -o ui_mainwindowgestionnaires.h
 
@@ -352,6 +885,9 @@ ui_dialogconnexion.h: dialogconnexion.ui
 ui_dialogajoutvisite.h: dialogajoutvisite.ui
 	/usr/lib/i386-linux-gnu/qt5/bin/uic dialogajoutvisite.ui -o ui_dialogajoutvisite.h
 
+ui_dialogvisitecontroleur.h: dialogvisitecontroleur.ui
+	/usr/lib/i386-linux-gnu/qt5/bin/uic dialogvisitecontroleur.ui -o ui_dialogvisitecontroleur.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -362,27 +898,939 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-main.o: main.cpp mainwindowgestionnaires.h \
+main.o: main.cpp /usr/include/i386-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlDatabase \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDebug \
+		mainwindowgestionnaires.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QMainWindow \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qicon.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlRecord \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlrecord.h \
 		dialogconnexion.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QVector \
 		mainwindowcontroleurs.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindowgestionnaires.o: mainwindowgestionnaires.cpp mainwindowgestionnaires.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QMainWindow \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qicon.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDebug \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlRecord \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlrecord.h \
 		ui_mainwindowgestionnaires.h \
-		dialogajoutvisite.h
+		/usr/include/i386-linux-gnu/qt5/QtCore/QVariant \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QAction \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qaction.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QButtonGroup \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QGraphicsView \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qgraphicsview.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainter.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpen.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qscrollarea.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qframe.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHeaderView \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qheaderview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvalidator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregularexpression.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyle.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabbar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qrubberband.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLabel \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlabel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLineEdit \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlineedit.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextformat.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QListWidget \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlistwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlistview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QMenuBar \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmenubar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmenu.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QPushButton \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QRadioButton \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qradiobutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QSpacerItem \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QStatusBar \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstatusbar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QTabWidget \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QTableWidget \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtableview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QWidget \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QTime \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatetime.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDateTime \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QMessageBox \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmessagebox.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QListWidgetItem \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QGraphicsLineItem \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QGraphicsTextItem \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QGraphicsRectItem \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QGraphicsEllipseItem \
+		dialogajoutvisite.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		dialogvisitecontroleur.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindowgestionnaires.o mainwindowgestionnaires.cpp
 
 mainwindowcontroleurs.o: mainwindowcontroleurs.cpp mainwindowcontroleurs.h \
-		ui_mainwindowcontroleurs.h
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QMainWindow \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmainwindow.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qicon.h \
+		ui_mainwindowcontroleurs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QVariant \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QAction \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qaction.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QButtonGroup \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHeaderView \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qheaderview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qframe.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvalidator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregularexpression.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyle.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabbar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qrubberband.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLabel \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlabel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLineEdit \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlineedit.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextformat.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpen.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QMenuBar \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmenubar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qmenu.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QPlainTextEdit \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qplaintextedit.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtextedit.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextdocument.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qabstracttextdocumentlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qglyphrun.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrawfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontdatabase.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QPushButton \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QRadioButton \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qradiobutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QStatusBar \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstatusbar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QTableWidget \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtableview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QWidget \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDebug \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindowcontroleurs.o mainwindowcontroleurs.cpp
 
 dialogconnexion.o: dialogconnexion.cpp dialogconnexion.h \
-		ui_dialogconnexion.h
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDebug \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QVector \
+		ui_dialogconnexion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QVariant \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QAction \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qaction.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qicon.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QButtonGroup \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHeaderView \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qheaderview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qframe.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvalidator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregularexpression.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyle.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabbar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qrubberband.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLabel \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlabel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLineEdit \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlineedit.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextformat.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpen.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QPushButton \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QSpacerItem \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QVBoxLayout \
+		dialogajoutvisite.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogconnexion.o dialogconnexion.cpp
 
 dialogajoutvisite.o: dialogajoutvisite.cpp dialogajoutvisite.h \
-		ui_dialogajoutvisite.h
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		ui_dialogajoutvisite.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QVariant \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QAction \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qaction.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qicon.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QButtonGroup \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QDialogButtonBox \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialogbuttonbox.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QHeaderView \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qheaderview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qframe.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvalidator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregularexpression.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qstyle.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabbar.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qrubberband.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLabel \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlabel.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QLineEdit \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qlineedit.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextformat.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpen.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtextoption.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QTableWidget \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtablewidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qtableview.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogajoutvisite.o dialogajoutvisite.cpp
+
+dialogvisitecontroleur.o: dialogvisitecontroleur.cpp dialogvisitecontroleur.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/QDialog \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qdialog.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfeatures.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtypetraits.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_mips.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_x86.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qatomic_unix.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qisenum.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/i386-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/i386-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/i386-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		ui_dialogvisitecontroleur.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/QSqlQuery \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqlquery.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsql.h \
+		/usr/include/i386-linux-gnu/qt5/QtSql/qsqldatabase.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogvisitecontroleur.o dialogvisitecontroleur.cpp
 
 moc_mainwindowgestionnaires.o: moc_mainwindowgestionnaires.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindowgestionnaires.o moc_mainwindowgestionnaires.cpp
@@ -395,6 +1843,9 @@ moc_dialogconnexion.o: moc_dialogconnexion.cpp
 
 moc_dialogajoutvisite.o: moc_dialogajoutvisite.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialogajoutvisite.o moc_dialogajoutvisite.cpp
+
+moc_dialogvisitecontroleur.o: moc_dialogvisitecontroleur.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialogvisitecontroleur.o moc_dialogvisitecontroleur.cpp
 
 ####### Install
 
