@@ -649,10 +649,15 @@ void MainWindowGestionnaires::on_pushButtonAjoutVisite_clicked()
         qDebug() << dateVisite;
         // demandé le libelle
         QSqlQuery ajoutVisite("insert into visite(idVisite,libelleVisite,dateVisite,gestionnaire,controleur) values("+idMaxVisite+",'','"+dateVisite+"',"+idSession+","+idUtilisateur+");");
+<<<<<<< HEAD
         qDebug() << "insert into visite(idVisite,libelleVisite,dateVisite,gestionnaire,controleur) values("+idMaxVisite+",'','"+dateVisite+"',"+idSession+","+idUtilisateur+");";
         ajoutVisite.exec();
         QSqlQuery ajoutControleProducteur("insert into ControleProducteur(idVisite, idU) values("+idMaxVisite+","+idUtilisateur+"); ");
         qDebug() << "insert into ControleProducteur(idVisite, idU) values("+idMaxVisite+","+idUtilisateur+");";
+=======
+        ajoutVisite.exec();
+        QSqlQuery ajoutControleProducteur("insert into controleProducteur(idVisite, idU) values("+idMaxVisite+","+idUtilisateur+"); ");
+>>>>>>> aa0f5a2d402394b5de48895083fc1af8b205d890
         ajoutControleProducteur.exec();
     }
 }
@@ -661,15 +666,24 @@ void MainWindowGestionnaires::on_pushButtonAjoutPremVisite_clicked()
 {
     QSqlQuery recupIdVisite("select ifnull(max(idVisite),0)+1 as maxId from visite;");
     if(recupIdVisite.next()){
+<<<<<<< HEAD
         idMaxVisite = recupIdVisite.value("maxId").toString();
     }
     QList<QTableWidgetItem*> itemSelectionne = ui->tableWidgetProducteurPremVisite->selectedItems();
     int row = itemSelectionne[0]->row();
     QString idUtilisateur = ui->tableWidgetProducteurPremVisite->item(row,0)->data(32).toString();
+=======
+        idMaxVisite = recupIdVisite.value("maxId").toInt();
+    }
+    QList<QTableWidgetItem*> itemSelectionne = ui->tableWidgetProducteurVisite->selectedItems();
+    int row = itemSelectionne[0]->row();
+    QString idUtilisateur = ui->tableWidgetProducteurVisite->item(row,0)->data(32).toString();
+>>>>>>> aa0f5a2d402394b5de48895083fc1af8b205d890
     DialogAjoutVisite ajoutVisite;
     if(ajoutVisite.exec()==DialogAjoutVisite::Accepted){
         QString dateVisite = ajoutVisite.getDateVisite();
         QString idControleur = ajoutVisite.getIdControleur();
+<<<<<<< HEAD
         qDebug() << "blabla" << dateVisite;
         qDebug() << "blabla" << idControleur;
         QSqlQuery ajoutVisite("insert into visite(idVisite,libelleVisite,dateVisite,gestionnaire,controleur) values("+idMaxVisite+",'Première visite','"+dateVisite+"',"+idSession+","+idControleur+");");
@@ -687,6 +701,14 @@ void MainWindowGestionnaires::on_pushButtonAjoutPremVisite_clicked()
             modifEtatU.exec();
         }
         chargementProducteur();
+=======
+        qDebug() << dateVisite;
+        // demandé le libelle
+        QSqlQuery ajoutVisite("insert into visite(idVisite,libelleVisite,dateVisite,gestionnaire,controleur) values("+idMaxVisite+",'Première visite','"+dateVisite+"',"+idSession+","+idUtilisateur+");");
+        ajoutVisite.exec();
+        QSqlQuery ajoutControleProducteur("insert into controleProducteur(idVisite, idU) values("+idMaxVisite+","+idUtilisateur+"); ");
+        ajoutControleProducteur.exec();
+>>>>>>> aa0f5a2d402394b5de48895083fc1af8b205d890
     }
 }
 

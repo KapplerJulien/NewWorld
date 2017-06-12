@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QSqlDatabase dbContact=QSqlDatabase::addDatabase("QMYSQL");
     dbContact.setDatabaseName("dbNewWorldUp");
-    dbContact.setUserName("adminDBNewWorld");
-    dbContact.setPassword("Pa$$w0rd");
+    dbContact.setUserName("root");
+    dbContact.setPassword("");
     if(dbContact.open())
     {
         DialogConnexion test;

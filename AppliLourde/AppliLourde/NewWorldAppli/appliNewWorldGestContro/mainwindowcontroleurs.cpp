@@ -56,7 +56,11 @@ void MainWindowControleurs::on_pushButtonModifierVisite_clicked()
     date = ui->tableWidgetProducteur->item(row,2)->text();
     qDebug() << idProducteur;
     qDebug() << date;
+<<<<<<< HEAD
     QSqlQuery recupInfosProducteur("select cp.visiteConcluante, cp.motifRejet from ControleProducteur cp inner join visite v on cp.idVisite = v.idVisite where v.dateVisite ='"+date+"' and cp.idU ="+idProducteur+"; ");
+=======
+    QSqlQuery recupInfosProducteur("select cp.visiteConcluante, cp.motifRejet from controleProducteur cp inner join visite v on cp.idVisite = v.idVisite where v.dateVisite ='"+date+"' and cp.idU ="+idProducteur+"; ");
+>>>>>>> aa0f5a2d402394b5de48895083fc1af8b205d890
     if(recupInfosProducteur.next()){
         visiteConcluante = recupInfosProducteur.value("visiteConcluante").toString();
         motifRejet = recupInfosProducteur.value("motifRejet").toString();
@@ -89,7 +93,11 @@ void MainWindowControleurs::on_pushButtonModifier_clicked()
     qDebug() << visiteConcluanteModif;
 
     QString idVisite;
+<<<<<<< HEAD
     QSqlQuery recupIdVisite("select v.idVisite from ControleProducteur cp inner join visite v on cp.idVisite = v.idVisite where cp.idU = "+idProducteur+" and v.dateVisite = '"+date+"';");
+=======
+    QSqlQuery recupIdVisite("select v.idVisite from controleProducteur cp inner join visite v on cp.idVisite = v.idVisite where cp.idU = "+idProducteur+" and v.dateVisite = '"+date+"';");
+>>>>>>> aa0f5a2d402394b5de48895083fc1af8b205d890
     if(recupIdVisite.next()){
         idVisite = recupIdVisite.value("idVisite").toString();
     }
@@ -99,13 +107,21 @@ void MainWindowControleurs::on_pushButtonModifier_clicked()
     }
     if(visiteConcluanteModif != visiteConcluante){
         visiteConcluante = visiteConcluanteModif;
+<<<<<<< HEAD
         QSqlQuery modifVisiteConcluante("update ControleProducteur set visiteConcluante = "+visiteConcluanteModif+" where idVisite="+idVisite+";");
+=======
+        QSqlQuery modifVisiteConcluante("update controleProducteur set visiteConcluante = "+visiteConcluanteModif+" where idVisite="+idVisite+";");
+>>>>>>> aa0f5a2d402394b5de48895083fc1af8b205d890
         modifVisiteConcluante.exec();
     }
     qDebug() << motifRejet;
     if(motifRejetModif != motifRejet){
         motifRejet = motifRejetModif;
+<<<<<<< HEAD
         QSqlQuery modifMotifRejet("update ControleProducteur set motifRejet='"+motifRejetModif+"' where idVisite="+idVisite+";");
+=======
+        QSqlQuery modifMotifRejet("update controleProducteur set motifRejet='"+motifRejetModif+"' where idVisite="+idVisite+";");
+>>>>>>> aa0f5a2d402394b5de48895083fc1af8b205d890
         modifMotifRejet.exec();
     }
     chargementVisite();
