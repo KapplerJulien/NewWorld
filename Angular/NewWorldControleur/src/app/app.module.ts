@@ -1,26 +1,27 @@
+import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { Visite } from '../pages/visite/visite';
-import { Map } from '../pages/map/map';
+import { ListePage } from '../pages/liste/liste';
+import { MapPage } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
-
-import { ControleurVisite } from '../providers/controleur-visite';
-import { Producteur } from '../providers/producteur';
-
-import { HttpModule } from '@angular/http';
+import { ModalPage } from '../pages/liste/modalContent'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ControleurVisiteProvider } from '../providers/controleur-visite/controleur-visite';
+import { ControleurVisiteListProvider } from '../providers/controleur-visite-list/controleur-visite-list';
+import { ControleurVisiteListModalProvider } from '../providers/controleur-visite-list-modal/controleur-visite-list-modal';
 
 @NgModule({
   declarations: [
     MyApp,
-    Visite,
-    Map,
-    TabsPage
+    ListePage,
+    MapPage,
+    TabsPage,
+    ModalPage
   ],
   imports: [
     BrowserModule,
@@ -30,16 +31,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    Visite,
-    Map,
-    TabsPage
+    ListePage,
+    MapPage,
+    TabsPage,
+    ModalPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    ControleurVisite,
-    Producteur,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ControleurVisiteProvider,
+    ControleurVisiteListProvider,
+    ControleurVisiteListModalProvider
   ]
 })
 export class AppModule {}

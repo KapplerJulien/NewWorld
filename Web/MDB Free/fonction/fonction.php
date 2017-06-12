@@ -1,12 +1,12 @@
 <?php
 include ('connexionBdd.php');
 
-function ptsDeVente(){
+/**function ptsDeVente(){
 	// Requête SQL
 	$result = mysql_query('SELECT nom from PointDeVente order by nom;') or die ('ptsDeVente');
 	
 	return $result;
-} 
+} */
 
 function rand_string( $length ) {
 
@@ -201,10 +201,6 @@ function recupQuestion(){
 	return $result;
 }
 
-function recupPdvClient(){
-	
-}
-
 function recupUnite()
 {
     $texteRequete="select libelleUnite from unite;";
@@ -223,20 +219,20 @@ function remplireLot($qte,$jour,$mois,$annees,$conservation,$modeProd,$ramassage
         $ram=0;
     }
     //recuperer l'id max +1 pour incrementer
-    $requeteIdMax="select max(idLot)+1 from lot;";
+    $requeteIdMax="select ifnull(max(idLot),0)+1 as maxId from lot;";
     $resultatIdMax=mysql_query($requeteIdMax);
-    $tabInfosIdMax=mysql_fetch_array($resultatIdMax);
-    $maxId=$tabInfosIdMax[0];
+    $tabInfosIdMax=mysql_fetch_assoc($resultatIdMax);
+    $maxId=$tabInfosIdMax["maxId"];
     //recuperer l'id du produit selectionner
     $requeteIdProd="select idProd from produit where libelleProd='".$produit."' ;";
     $resultatIdProd=mysql_query($requeteIdProd);
-    $tabInfosIdProd=mysql_fetch_array($resultatIdProd);
-    $idProd=$tabInfosIdProd[0];
+    $tabInfosIdProd=mysql_fetch_assoc($resultatIdProd);
+    $idProd=$tabInfosIdProd["idProd"];
     //recuperer l'id de l'unite
     $texteRequeteIdUnite="select idUnite from unite where libelleUnite='".$unite."' ;";
     $resultatIdUnite=mysql_query($texteRequeteIdUnite);
-    $tabInfosIdUnite=mysql_fetch_array($resultatIdUnite);
-    $idUnite=$tabInfosIdUnite[0];
+    $tabInfosIdUnite=mysql_fetch_assoc($resultatIdUnite);
+    $idUnite=$tabInfosIdUnite["idUnite"];
     //requete finale pour l'insertion du lot
     $texteRequete="insert into lot (idLot,quantiteLot,dateRecolteLot,nbJourConservationLot,uniteDeVenteLot,modeProductionLot,ramassageManuelLot,prixUnitaireLot,idProd,idU,idUnite) values (".$maxId.",".$qte.",'".$annees."-".$mois."-".$jour."',".$conservation.",0,'".$modeProd."',".$ram.",".$prix.",".$idProd.",".$idUser.",".$idUnite.");";
     //echo $texteRequete;
@@ -254,18 +250,23 @@ function mesLots($idUser)
 function addDemandeProd($libelle,$description,$cat)
 {
     //
-    $requeteIdMax="select max(idProd)+1 from produit;";
+    $requeteIdMax="select ifnull(max(idProd),0)+1 as maxId from produit;";
     $resultatIdMax=mysql_query($requeteIdMax);
-    $tabInfosIdMax=mysql_fetch_array($resultatIdMax);
-    $maxId=$tabInfosIdMax[0];
+    $tabInfosIdMax=mysql_fetch_assoc($resultatIdMax);
+    $maxId=$tabInfosIdMax["maxId"];
     //
     $requeteIdCat="select idCat from categorie where libelleCat='".$cat."' ;";
     $resultatIdCat=mysql_query($requeteIdCat);
-    $tabInfosIdCat=mysql_fetch_array($resultatIdCat);
-    $idCat=$tabInfosIdCat[0];
+    $tabInfosIdCat=mysql_fetch_assoc($resultatIdCat);
+    $idCat=$tabInfosIdCat["idCat"];
     //
     $texteRequete="insert into produit (idProd,libelleProd,supprimeProd,etatprod,descriptionProd,idCat) values(".$maxId.",'".$libelle."',0,'ATT','".$description."',".$idCat.");";
     mysql_query($texteRequete);
+}
+
+function recupPdvClient(){
+	$requete = "select idPdv,nomPdv from pointDeVente;";
+	$result = mysql_query($requete);
 }
 
 ?>

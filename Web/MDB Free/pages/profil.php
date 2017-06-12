@@ -24,6 +24,12 @@
     <?php  
         if (isset($_POST["nom"])) {
             modifProfil($_SESSION["utilisateur"]["id"],$_POST["nom"],$_POST["prenom"],$_POST["adresse"],$_POST["cp"],$_POST["ville"],$_POST["tel"],$_POST["mail"],$_POST["pseudo"],$_POST["iban"]);
+			if(isset($_POST["heureL"])){
+				echo"1";
+				if(isset($_POST["minL"])){
+					echo"2";
+				}
+			}
         }
         $tabRes=recupProfil($_SESSION["utilisateur"]["id"]);
     ?>

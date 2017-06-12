@@ -1,7 +1,9 @@
 <?php
-	session_start();
-	include '../haut.php';
-    include '../../fonction/fonction.php';
+	if(!isset($_POST["commander"])){
+		session_start();
+		include '../haut.php';
+		include '../../fonction/fonction.php';
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,14 +25,14 @@
 </head>
 <body>
 <?php
+	var_dump($_POST);
     if(!(isset($_POST["pdv"]) && isset($_POST["heure"]))){
     // Faire choisir le point de vente où le client devra récupérer les produits + l'heure
 ?>
-<form action="commande.php">
+<form action="commande.php" method="POST">
     <!--Form without header-->
     <div class="card">
         <div class="card-block">
-
             <!--Header-->
             <div class="text-center">
                 <h3><i class="fa fa-lock"></i> Commande:</h3>
@@ -40,12 +42,15 @@
             <!--Body-->
             <div class="md-form">
                 Point de vente choisi
+				<?php //echo "1";?>
                 <select id="Pdv" class="form-control" name="pdv">
                     <option selected>Choix d'un point de vente</option>
-                    <option>Point de vente 1</option>
                     <?php
-                        
-
+                        $result = recupPdvClient();
+						var_dump($result);
+						while($data = mysql_fetch_assoc($result)){
+							echo "<option>".$data["nomPdv"]."</option>";
+						}						
                     ?>
                 </select>
             </div>
@@ -56,7 +61,7 @@
             </div>
 
             <div class="text-center">
-                <button class="btn btn-deep-purple"></button>
+                <input type="submit" name="commander" value="Commander">
             </div>
         </div>
     </div>
@@ -67,11 +72,14 @@
         // Ajouter à la base la quantité voulu d'un produit, le pdv choisi et l'heure de récupération prévu et l'heure de récupération réel   
         
 
-
+		$_SESSION["commande"]["pdv"] = $_POST["pdv"];
+		$_SESSION["commande"]["heure"] = $_POST["heure"];
         // Envoie vers commandeEffectue
         include './commandeEffectue.php'; 
     }
-    include '../bas.php';
+	if(!isset($_POST["commander"])){
+		include '../bas.php';
+	}
 ?>
 </body>
 </html>

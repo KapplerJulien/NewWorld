@@ -58,6 +58,19 @@
             <div class="md-form">
                 <input placeholder="iban" type="text" id="iban" name="iban" class="form-control" required maxlength="34" value="<?php echo "rien" ?>">
             </div>
+			<?php
+				if($_SESSION["utilisateur"]["type"] == "2"){
+					// echo "test";
+					?>
+					Lundi : <input type="text" name="heureL">heure <input type="text" name="minL">minutes <br> 
+					Mardi : <input type="text" name="heureMa">heure <input type="text" name="minMa">minutes <br>
+					Mercredi : <input type="text" name="heureM">heure <input type="text" name="minM">minutes <br>
+					Jeudi : <input type="text" name="heureJ">heure <input type="text" name="minJ">minutes <br>
+					Vendredi : <input type="text" name="heureV">heure <input type="text" name="minV">minutes <br>
+					Samedi : <input type="text" name="heureS">heure <input type="text" name="minS">minutes <br>
+				<?php
+				}
+			?>
             <div class="text-center">
                 <button class="btn btn-deep-purple">Modifier</button>
             </div>

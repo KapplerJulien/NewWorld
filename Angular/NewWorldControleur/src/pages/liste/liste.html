@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Listes des visites
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let visite of visites">
+    <!--
+    <ion-list-header>
+      Visites
+    </ion-list-header>
+    -->
+
+    <a ion-item (click)="openModal({visNum: visite.id})">
+      <ion-icon name="arrow-forward" item-left></ion-icon>
+      {{visite.prenom}} {{visite.nom}} {{visite.ville}}
+    </a>
+  </ion-list>
+</ion-content>
+
